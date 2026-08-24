@@ -884,15 +884,19 @@ button { cursor: pointer; }
 .login-prefix {
       flex: 0 0 20px;
       width: 20px;
+      height: 20px;
       color: rgba(131, 194, 255, .76);
-      font-size: 18px;
-      line-height: 1;
-      text-align: center;
-    }
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+}
 
-.iot-password-wrap .login-prefix {
+.iot-password-wrap > .login-prefix {
       margin-left: 14px;
-    }
+}
 
 .iot-input-wrap input,
 .iot-password-wrap input {

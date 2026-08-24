@@ -3386,6 +3386,15 @@
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
       state.loginCaptcha = Array.from({ length: 5 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
     }
+    function loginIcon(type) {
+      const icons = {
+        tenant: `<svg class="login-prefix" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 21v-6h6v6"></path><path d="M9 10h.01"></path><path d="M15 10h.01"></path></svg>`,
+        user: `<svg class="login-prefix" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
+        lock: `<svg class="login-prefix" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><path d="M12 14v2"></path></svg>`,
+        captcha: `<svg class="login-prefix" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6l-7-3Z"></path><path d="m9.5 12 1.7 1.7 3.6-4"></path></svg>`
+      };
+      return icons[type] || icons.user;
+    }
     function loginParticlesSvg() {
       return `<svg class="iot-login-particles" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
         <g fill="none" stroke="#6ba8df" stroke-width="1.2" opacity=".18">
@@ -3474,10 +3483,10 @@
             <h1>用户登录</h1>
             <p>欢迎回到软云 IoT 控制台</p>
             <form class="iot-login-form" id="loginForm">
-              <label class="iot-field"><span>租户ID</span><div class="iot-input-wrap"><i class="login-prefix iconfont icon-quanxian"></i><input id="loginTenantId" value="000000" autocomplete="off" placeholder="请输入租户ID" aria-label="租户ID"></div><p class="iot-login-error" id="loginTenantError"></p></label>
-              <label class="iot-field"><span>账号</span><div class="iot-input-wrap"><i class="login-prefix iconfont icon-yonghu"></i><input id="loginUsername" value="admin" autocomplete="off" placeholder="请输入账号" aria-label="账号"></div><p class="iot-login-error" id="loginUsernameError"></p></label>
-              <label class="iot-field"><span>密码</span><div class="iot-password-wrap"><i class="login-prefix iconfont icon-mima"></i><input id="loginPassword" type="${state.loginPasswordVisible ? "text" : "password"}" value="admin" autocomplete="off" placeholder="请输入密码" aria-label="密码"><button type="button" data-action="loginTogglePassword" aria-label="显示或隐藏密码"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div><p class="iot-login-error" id="loginPasswordError"></p></label>
-              <div class="iot-field"><span>验证码</span><div class="iot-captcha-grid"><div class="iot-input-wrap"><i class="login-prefix iconfont icon-yanzhengma"></i><input value="" autocomplete="off" maxlength="5" placeholder="请输入验证码" aria-label="验证码"></div><button class="iot-captcha-card" type="button" data-action="refreshLoginCode" title="刷新验证码"><span>${safeText(state.loginCaptcha)}</span></button></div></div>
+              <label class="iot-field"><span>租户ID</span><div class="iot-input-wrap">${loginIcon("tenant")}<input id="loginTenantId" value="000000" autocomplete="off" placeholder="请输入租户ID" aria-label="租户ID"></div><p class="iot-login-error" id="loginTenantError"></p></label>
+              <label class="iot-field"><span>账号</span><div class="iot-input-wrap">${loginIcon("user")}<input id="loginUsername" value="admin" autocomplete="off" placeholder="请输入账号" aria-label="账号"></div><p class="iot-login-error" id="loginUsernameError"></p></label>
+              <label class="iot-field"><span>密码</span><div class="iot-password-wrap">${loginIcon("lock")}<input id="loginPassword" type="${state.loginPasswordVisible ? "text" : "password"}" value="admin" autocomplete="off" placeholder="请输入密码" aria-label="密码"><button type="button" data-action="loginTogglePassword" aria-label="显示或隐藏密码"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div><p class="iot-login-error" id="loginPasswordError"></p></label>
+              <div class="iot-field"><span>验证码</span><div class="iot-captcha-grid"><div class="iot-input-wrap">${loginIcon("captcha")}<input value="" autocomplete="off" maxlength="5" placeholder="请输入验证码" aria-label="验证码"></div><button class="iot-captcha-card" type="button" data-action="refreshLoginCode" title="刷新验证码"><span>${safeText(state.loginCaptcha)}</span></button></div></div>
               <div class="iot-login-helper"><button type="button" class="iot-forgot" data-action="loginForgot">忘记密码?</button></div>
               <button class="login-submit iot-submit" type="submit" data-action="login">登录</button>
             </form>
