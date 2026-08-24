@@ -3144,8 +3144,9 @@ button { cursor: pointer; }
 }
 
 :is(.category-config-page, .product-config-page, .device-config-page) .category-source-desc-grid {
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 64px;
+  row-gap: 18px;
   padding: 0;
 }
 
