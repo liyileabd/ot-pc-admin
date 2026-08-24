@@ -10369,10 +10369,10 @@ select[data-compact-source] {
 }
 
 .page-head-inline {
-  min-height: 48px;
+  min-height: 40px;
   align-items: center;
-  margin: 0 0 12px;
-  padding: 0 0 10px;
+  margin: 0 0 8px;
+  padding: 0 0 6px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -10397,7 +10397,7 @@ select[data-compact-source] {
 .page-head-inline .page-title {
   flex: 0 0 auto;
   font-size: 18px;
-  line-height: 26px;
+  line-height: 22px;
 }
 
 .page-head-inline .breadcrumb {
@@ -12658,6 +12658,9 @@ select[data-compact-source] {
 
 .dashboard-page .page-head-inline {
   width: 100%;
+  min-height: 38px;
+  margin: 0;
+  padding: 0 0 6px;
 }
 
 .dashboard-page .card-grid {
@@ -13828,13 +13831,13 @@ select[data-compact-source] {
 .dashboard-page {
   max-width: none;
   margin: 0;
-  gap: 16px;
+  gap: 12px;
 }
 
 .dashboard-page .page-head-inline {
-  min-height: 58px;
+  min-height: 42px;
   margin: 0;
-  padding: 12px 18px;
+  padding: 8px 16px;
   align-items: center;
   background:
     linear-gradient(90deg, rgba(45, 101, 214, .09), rgba(19, 168, 200, .04) 38%, rgba(255,255,255,0) 72%),
@@ -13853,8 +13856,8 @@ select[data-compact-source] {
 }
 
 .dashboard-page .page-title {
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .dashboard-page .breadcrumb {
