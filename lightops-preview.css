@@ -3770,16 +3770,24 @@ button { cursor: pointer; }
 .sort-stepper button,
 .sort-stepper input {
       height: 24px;
+      box-sizing: border-box;
       border: 0;
+      padding: 0;
       background: #fff;
       color: #606266;
       text-align: center;
+      font: inherit;
+      line-height: 1;
     }
 
 .sort-stepper button {
       width: 28px;
       cursor: pointer;
       background: #f5f7fa;
+      display: inline-grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 500;
     }
 
 .sort-stepper button:hover { color: var(--blue); background: #eef8f6; }
@@ -3789,6 +3797,8 @@ button { cursor: pointer; }
       border-left: 1px solid #dcdfe6;
       border-right: 1px solid #dcdfe6;
       outline: none;
+      display: block;
+      line-height: 24px;
     }
 
 .card-actions { margin-top: 12px; padding-top: 12px; border-top: 1px solid #f2f3f5; display: flex; flex-wrap: wrap; gap: 8px; }
