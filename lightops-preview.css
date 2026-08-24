@@ -1811,13 +1811,13 @@ button { cursor: pointer; }
 .notice-list time { color: #c0c4cc; white-space: nowrap; font-size: 12px; }
 
 .page-head {
-      min-height: 62px;
+      min-height: 48px;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 16px;
-      margin: 0 0 14px;
-      padding: 2px 0 13px;
+      margin: 0 0 10px;
+      padding: 0 0 8px;
       color: #303133;
     }
 
@@ -1825,7 +1825,7 @@ button { cursor: pointer; }
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 4px;
     }
 
 .page-title {
@@ -1833,7 +1833,7 @@ button { cursor: pointer; }
       color: var(--text);
       font-size: 16px;
       font-weight: 600;
-      line-height: 24px;
+      line-height: 20px;
       letter-spacing: 0;
     }
 
@@ -10369,10 +10369,10 @@ select[data-compact-source] {
 }
 
 .page-head-inline {
-  min-height: 40px;
+  min-height: 36px;
   align-items: center;
-  margin: 0 0 8px;
-  padding: 0 0 6px;
+  margin: 0 0 6px;
+  padding: 0 0 4px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -10396,8 +10396,8 @@ select[data-compact-source] {
 
 .page-head-inline .page-title {
   flex: 0 0 auto;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .page-head-inline .breadcrumb {
@@ -13381,10 +13381,10 @@ select[data-compact-source] {
 }
 
 .page-head {
-  min-height: 58px;
+  min-height: 48px;
   align-items: center;
-  margin-bottom: 12px;
-  padding: 12px 16px;
+  margin-bottom: 10px;
+  padding: 8px 16px;
   border: 1px solid #e5edf4;
   border-radius: 8px;
   background:
@@ -13399,8 +13399,9 @@ select[data-compact-source] {
 
 .page-title {
   color: var(--text);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
+  line-height: 20px;
 }
 
 .breadcrumb {
@@ -13835,9 +13836,9 @@ select[data-compact-source] {
 }
 
 .dashboard-page .page-head-inline {
-  min-height: 42px;
+  min-height: 38px;
   margin: 0;
-  padding: 8px 16px;
+  padding: 6px 16px;
   align-items: center;
   background:
     linear-gradient(90deg, rgba(45, 101, 214, .09), rgba(19, 168, 200, .04) 38%, rgba(255,255,255,0) 72%),
@@ -13857,7 +13858,7 @@ select[data-compact-source] {
 
 .dashboard-page .page-title {
   font-size: 16px;
-  line-height: 22px;
+  line-height: 20px;
 }
 
 .dashboard-page .breadcrumb {
