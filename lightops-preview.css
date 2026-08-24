@@ -14773,6 +14773,37 @@ select[data-compact-source] {
   }
 }
 
+/* 2026-08-24 数据总览地图/趋势头部对齐：标题高度、字号和圆角统一。 */
+.dashboard-page .dashboard-map-trend-grid .trend-panel {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.dashboard-page .dashboard-map-trend-grid .trend-panel > .dashboard-section-title {
+  border-radius: 8px 8px 0 0;
+}
+
+.dashboard-page .dashboard-map-trend-grid .realtime-map-head {
+  min-height: 48px;
+  flex-basis: 48px;
+  padding: 0 18px;
+}
+
+.dashboard-page .section-title.realtime-map-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dashboard-page .section-title.realtime-map-title span {
+  gap: 8px;
+}
+
+.dashboard-page .section-title.realtime-map-title span::before {
+  width: 8px;
+  height: 8px;
+  box-shadow: 0 0 0 4px rgba(24, 212, 230, .12);
+}
+
 .dashboard-page .realtime-map-pin {
   z-index: 5;
   color: #19cf6b;
