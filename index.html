@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>软云Iot设备控制及数据可视化系统</title>
+  <title>软云 IoT 设备控制及数据可视化系统</title>
   <style>
     .menu-group { color: #d5dde8; cursor: pointer; }
     
@@ -1188,7 +1188,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20260824login" />
+<link rel="stylesheet" href="lightops-preview.css?v=20260824uniform2" />
 </head>
 <body>
   <div id="root"></div>
@@ -1364,7 +1364,7 @@
         { id: "pch-001", pushName: "企业微信运维群", pushType: 1, pushParam: "webhook=https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=***", webhook: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=ops-robot", createTime: "2026-08-04 10:12:20" },
         { id: "pch-002", pushName: "钉钉值班机器人", pushType: 2, pushParam: "webhook=https://oapi.dingtalk.com/robot/send?access_token=***; robotSign=SEC***", webhook: "https://oapi.dingtalk.com/robot/send?access_token=ding-ops", robotSign: "SECxxxxxxxx", createTime: "2026-08-04 10:20:08" },
         { id: "pch-003", pushName: "运维告警邮箱", pushType: 3, pushParam: "senderEmail=iot-alert@softyun.local; recipientEmail=ops@softyun.local", senderEmail: "iot-alert@softyun.local", emailHost: "smtp.softyun.local", emailPort: "465", username: "iot-alert", password: "******", recipientEmail: "ops@softyun.local", createTime: "2026-08-04 11:08:32" },
-        { id: "pch-004", pushName: "阿里云短信通道", pushType: 4, pushParam: "accessKey=LTAI***; regionId=cn-hangzhou; smsSign=软云IoT", accessKey: "LTAI********", secretKey: "******", regionId: "cn-hangzhou", smsSign: "软云IoT", createTime: "2026-08-04 11:42:18" },
+        { id: "pch-004", pushName: "阿里云短信通道", pushType: 4, pushParam: "accessKey=LTAI***; regionId=cn-hangzhou; smsSign=软云 IoT", accessKey: "LTAI********", secretKey: "******", regionId: "cn-hangzhou", smsSign: "软云 IoT", createTime: "2026-08-04 11:42:18" },
         { id: "pch-005", pushName: "腾讯云短信通道", pushType: 5, pushParam: "appId=1400000000; appKey=***; smsSign=软云科技", appId: "1400000000", appKey: "******", smsSign: "软云科技", createTime: "2026-08-04 12:04:43" }
       ],
       pushTemplates: [
@@ -2567,7 +2567,7 @@
       rememberTopMenuRoute(path);
       if (!state.tags.includes(path) && knownRoute(path)) state.tags.push(path);
       location.hash = path;
-      document.title = routeTitle(path) + " | 软云Iot设备控制及数据可视化系统";
+      document.title = routeTitle(path) + " | 软云 IoT 设备控制及数据可视化系统";
       render();
       if (routeChanged) resetMainScrollLeft();
     }
@@ -3632,7 +3632,7 @@
       const systemActive = systemMenuRoutes.some(([, label]) => label === active);
       return `<div class="app ${state.collapsed ? "collapsed" : ""}">
         <aside class="sidebar">
-          <div class="logo-line"><span class="mini-logo">I</span><span class="logo-text">软云IoT</span></div>
+          <div class="logo-line"><span class="mini-logo">I</span><span class="logo-text">软云 IoT</span></div>
           <nav class="menu">
             ${sidebarMenuItem("/wel/index", "数据总览", menuGroupIcons.dashboard, active)}
             ${sidebarGroup("设备中心", "device", deviceOpen, deviceActive, menuGroupIcons.device)}
@@ -3674,7 +3674,7 @@
           </div>
         </header>
         <main class="main">${routeBody()}</main>
-        <footer class="footer">Copyright © 2024 软云Iot设备控制及数据可视化系统 All Rights Reserved.</footer>
+        <footer class="footer">Copyright © 2024 软云 IoT 设备控制及数据可视化系统 All Rights Reserved.</footer>
       </div>${overlays()}${state.toast ? `<div class="toast">${state.toast}</div>` : ""}${!state.userInfo.userId ? thirdRegister() : ""}`;
     }
     function searchResults() {
@@ -3854,7 +3854,7 @@
         <section class="dashboard-grid dashboard-map-trend-grid">
           <div class="panel map-panel realtime-map-card">
             <div class="realtime-map-head">
-              <div class="section-title dashboard-section-title realtime-map-title"><span>设备实时分布地图 (Real-time Map)</span></div>
+              <div class="section-title dashboard-section-title realtime-map-title"><span>设备实时分布地图</span></div>
               <div class="realtime-map-legend"><span class="normal">运行正常</span><span class="alarm">告警中断</span></div>
             </div>
             <div class="map-shell realtime-map-shell">
@@ -13180,7 +13180,7 @@
       if (state.modal === "mqttClientView") html += mqttClientViewModal();
       if (state.modal === "mqttAuthView") html += mqttAuthViewModal();
       if (state.modal === "mqttImportJson") html += `<div class="modal-mask"><div class="modal modal-wide"><div class="modal-head"><span>导入 JSON 格式的 MQTT 连接参数</span><button class="btn text" data-action="closeModal">×</button></div><div class="modal-body"><textarea id="mqttImportJsonText" class="json-textarea">${safeText(state.mqttWs.mqttJson)}</textarea></div><div class="modal-foot"><button class="btn" data-action="closeModal">取 消</button><button class="btn" data-action="mqttJsonFormat">格式化</button><button class="btn primary" data-action="mqttJsonApply">确 定</button></div></div></div>`;
-      if (state.locked) html += `<div class="lock-screen"><div class="lock-card"><h2>锁屏</h2><p>软云Iot设备控制及数据可视化系统</p><input placeholder="请输入密码"><button class="btn primary" data-action="unlock">解锁</button></div></div>`;
+      if (state.locked) html += `<div class="lock-screen"><div class="lock-card"><h2>锁屏</h2><p>软云 IoT 设备控制及数据可视化系统</p><input placeholder="请输入密码"><button class="btn primary" data-action="unlock">解锁</button></div></div>`;
       return html;
     }
     function modal(title, body, ok = "确定") {
@@ -13257,8 +13257,8 @@
     function render() {
       if (!state.authed && state.route !== "/login") state.route = "/login";
       document.title = state.route === "/login"
-        ? "软云Iot设备控制及数据可视化系统"
-        : routeTitle(state.route) + " | 软云Iot设备控制及数据可视化系统";
+        ? "软云 IoT 设备控制及数据可视化系统"
+        : routeTitle(state.route) + " | 软云 IoT 设备控制及数据可视化系统";
       root.innerHTML = state.route === "/login" ? loginView() : shell();
       bindEvents();
       window.upgradeTableSelections?.(root);

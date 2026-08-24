@@ -880,13 +880,13 @@ button { cursor: pointer; }
     }
 
 .iot-input-wrap {
-      padding-left: 14px;
+      padding-left: 16px;
     }
 
 .login-prefix {
-      flex: 0 0 20px;
-      width: 20px;
-      height: 20px;
+      flex: 0 0 22px;
+      width: 22px;
+      height: 22px;
       color: rgba(143, 194, 255, .78);
       display: block;
       fill: none;
@@ -897,7 +897,7 @@ button { cursor: pointer; }
 }
 
 .iot-password-wrap > .login-prefix {
-      margin-left: 14px;
+      margin-left: 16px;
 }
 
 .iot-input-wrap input,
@@ -912,7 +912,7 @@ button { cursor: pointer; }
       font-size: 15px;
       font-weight: 500;
       outline: none;
-      padding: 0 14px 0 10px;
+      padding: 0 14px 0 12px;
     }
 
 .iot-password-wrap input {
@@ -920,7 +920,7 @@ button { cursor: pointer; }
     }
 
 .iot-password-wrap button {
-      width: 46px;
+      width: 50px;
       height: 100%;
       border: 0;
       background: transparent;
@@ -930,8 +930,8 @@ button { cursor: pointer; }
     }
 
 .iot-password-wrap svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       fill: none;
       stroke: currentColor;
       stroke-width: 2;
@@ -991,9 +991,9 @@ button { cursor: pointer; }
 .captcha-refresh-icon {
       position: relative;
       z-index: 1;
-      flex: 0 0 18px;
-      width: 18px;
-      height: 18px;
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
       color: #39d9ff;
       fill: none;
       stroke: currentColor;
@@ -1045,10 +1045,10 @@ button { cursor: pointer; }
     }
 
 .iot-remember i {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border: 1px solid rgba(161, 186, 219, .62);
-      border-radius: 4px;
+      border-radius: 5px;
       background: rgba(10, 25, 42, .64);
       display: inline-block;
       position: relative;
@@ -1063,8 +1063,8 @@ button { cursor: pointer; }
 .iot-remember.checked i::after {
       content: "";
       position: absolute;
-      left: 5px;
-      top: 2px;
+      left: 6px;
+      top: 3px;
       width: 6px;
       height: 10px;
       border: solid #051d2f;
@@ -1084,7 +1084,7 @@ button { cursor: pointer; }
 .iot-submit.login-submit {
       height: 52px;
       margin-top: 2px;
-      border-radius: 13px;
+      border-radius: 12px;
       color: #fff;
       font-size: 16px;
       font-weight: 700;
@@ -1287,7 +1287,7 @@ button { cursor: pointer; }
       .iot-brand-copy span { font-size: 13px; letter-spacing: 3px; }
       .iot-login-visual { display: none; }
       .iot-login-panel { position: relative; right: auto; top: auto; transform: none; width: auto; margin: 24px 18px 0; }
-      .iot-login-card { min-height: 0; padding: 34px 24px 30px; border-radius: 22px; }
+      .iot-login-card { min-height: 0; padding: 34px 24px 30px; border-radius: 24px; }
       .iot-captcha-grid { grid-template-columns: 1fr; }
     }
 
@@ -1782,7 +1782,13 @@ button { cursor: pointer; }
       font-weight: 500;
     }
 
-.more { border: 0; background: transparent; color: var(--blue); }
+.section-title > span {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+
+.more { border: 0; background: transparent; color: var(--blue); font-size: 13px; }
 
 .bar { height: 8px; background: #f0f2f5; border-radius: 999px; overflow: hidden; }
 
@@ -7469,7 +7475,7 @@ a {
   display: flex;
   align-items: center;
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -13945,8 +13951,7 @@ select[data-compact-source] {
   box-shadow: 0 8px 22px rgba(21, 41, 78, .05);
 }
 
-.dashboard-page .section-title.dashboard-section-title,
-.dashboard-page .chart-section-title {
+.dashboard-page .section-title.dashboard-section-title {
   min-height: 48px;
   height: auto;
   padding: 0 18px;
@@ -13954,6 +13959,16 @@ select[data-compact-source] {
   font-size: 15px;
   font-weight: 600;
   background: linear-gradient(180deg, #fff, #fbfdff);
+}
+
+.dashboard-page .chart-section-title {
+  min-height: 28px;
+  height: 28px;
+  padding: 0;
+  color: #18263a;
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
 }
 
 .dashboard-page .section-extra {
