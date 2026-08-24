@@ -3486,7 +3486,7 @@
               <label class="iot-field"><span>租户ID</span><div class="iot-input-wrap">${loginIcon("tenant")}<input id="loginTenantId" value="000000" autocomplete="off" placeholder="请输入租户ID" aria-label="租户ID"></div><p class="iot-login-error" id="loginTenantError"></p></label>
               <label class="iot-field"><span>账号</span><div class="iot-input-wrap">${loginIcon("user")}<input id="loginUsername" value="admin" autocomplete="off" placeholder="请输入账号" aria-label="账号"></div><p class="iot-login-error" id="loginUsernameError"></p></label>
               <label class="iot-field"><span>密码</span><div class="iot-password-wrap">${loginIcon("lock")}<input id="loginPassword" type="${state.loginPasswordVisible ? "text" : "password"}" value="admin" autocomplete="off" placeholder="请输入密码" aria-label="密码"><button type="button" data-action="loginTogglePassword" aria-label="显示或隐藏密码"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div><p class="iot-login-error" id="loginPasswordError"></p></label>
-              <div class="iot-field"><span>验证码</span><div class="iot-captcha-grid"><div class="iot-input-wrap">${loginIcon("captcha")}<input value="" autocomplete="off" maxlength="5" placeholder="请输入验证码" aria-label="验证码"></div><button class="iot-captcha-card" type="button" data-action="refreshLoginCode" title="刷新验证码"><span>${safeText(state.loginCaptcha)}</span><svg class="captcha-refresh-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.4 6.4"></path><path d="M3 12A9 9 0 0 1 18.4 5.6"></path><path d="M18 2v4h-4"></path><path d="M6 22v-4h4"></path></svg></button></div></div>
+              <div class="iot-field"><span>验证码</span><div class="iot-captcha-grid"><div class="iot-input-wrap">${loginIcon("captcha")}<input value="" autocomplete="off" maxlength="5" placeholder="请输入验证码" aria-label="验证码"></div><button class="iot-captcha-card" type="button" data-action="refreshLoginCode" title="刷新验证码"><span class="login-captcha-value">${safeText(state.loginCaptcha)}</span><svg class="captcha-refresh-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.4 6.4"></path><path d="M3 12A9 9 0 0 1 18.4 5.6"></path><path d="M18 2v4h-4"></path><path d="M6 22v-4h4"></path></svg></button></div></div>
               <div class="iot-login-options"><button type="button" class="iot-remember ${state.loginRemember ? "checked" : ""}" data-action="loginRemember"><i></i>记住密码</button><button type="button" class="iot-forgot" data-action="loginForgot">忘记密码?</button></div>
               <button class="login-submit iot-submit" type="submit" data-action="login">登录</button>
             </form>
@@ -13456,7 +13456,12 @@
           }
         }
         if (action === "login") { loginSubmit(ev); return; }
-        if (action === "refreshLoginCode") { refreshLoginCaptcha(); render(); return; }
+        if (action === "refreshLoginCode") {
+          refreshLoginCaptcha();
+          const captchaValue = document.querySelector(".login-captcha-value");
+          if (captchaValue) captchaValue.textContent = state.loginCaptcha;
+          return;
+        }
         if (action === "loginTogglePassword") { state.loginPasswordVisible = !state.loginPasswordVisible; render(); return; }
         if (action === "loginRemember") { state.loginRemember = !state.loginRemember; render(); return; }
         if (action === "loginForgot") { state.modal = "loginForgot"; state.modalData = { sent: false }; render(); return; }
