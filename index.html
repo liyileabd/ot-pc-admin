@@ -4441,10 +4441,14 @@
     function pageHeader(path = state.route, options = {}) {
       const label = options.breadcrumb || pathLabel(path);
       const segments = String(label || "").split("/").filter(Boolean);
-      const breadcrumb = segments.map(segment => `<span>${safeText(segment)}</span>`).join("");
       const title = options.title || routeTitle(path);
+      const normalizedTitle = String(title || "").replace(/\s+/g, "");
+      const normalizedLabel = segments.join("").replace(/\s+/g, "");
+      const showBreadcrumb = segments.length > 1 && normalizedLabel !== normalizedTitle;
+      const breadcrumb = showBreadcrumb ? segments.map(segment => `<span>${safeText(segment)}</span>`).join("") : "";
       const back = options.backRoute ? `<button class="btn page-back" data-route="${safeText(options.backRoute)}">返回</button>` : "";
-      return `<div class="page-head page-head-inline"><div class="page-head-main"><h1 class="page-title">${safeText(title)}</h1><div class="page-head-side"><div class="breadcrumb">${breadcrumb}</div>${back}</div></div></div>`;
+      const side = breadcrumb || back ? `<div class="page-head-side">${breadcrumb ? `<div class="breadcrumb">${breadcrumb}</div>` : ""}${back}</div>` : "";
+      return `<div class="page-head page-head-inline"><div class="page-head-main"><h1 class="page-title">${safeText(title)}</h1>${side}</div></div>`;
     }
     function inlinePageHeader(path = state.route, options = {}) {
       return pageHeader(path, options);
