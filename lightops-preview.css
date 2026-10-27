@@ -15789,3 +15789,9 @@ td.row-actions .link-cell.danger:focus-visible,
 .tree-row:hover .tree-node-label { color: var(--blue); }
 
 .tree-row.active .tree-node-label { color: var(--blue); font-weight: 400; }
+
+/* ---- 产品列表：操作列表头与行内操作居中对齐（2026-10-27） ---- */
+.product-list-page .data-table thead th:last-child,
+.product-list-page .data-table tbody td.row-actions {
+  text-align: center;
+}
