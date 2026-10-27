@@ -1997,20 +1997,14 @@ button { cursor: pointer; }
 }
 
 .category-list-page .category-filter-row {
-  align-items: center;
-}
-
-/* Shared configuration/detail surface, extracted from category information. */
+  align-items: center;}/* Shared configuration/detail surface, extracted from category information. */
 .config-source-page {
   min-height: calc(100vh - 86px);
   margin: -12px -12px -16px;
   padding: 0 0 24px;
   background: #fff;
   color: #303133;
-}
-
-.config-source-head {
-  min-height: 54px;
+}.config-source-head {  min-height: 54px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -3220,7 +3214,7 @@ button { cursor: pointer; }
 
 .device-config-page .device-function-tabs button {
   position: relative;
-  height: 40px;
+  height: 39px;
   padding: 0 18px;
   border: 0;
   background: #fff;
@@ -4001,19 +3995,13 @@ button { cursor: pointer; }
       box-sizing: border-box;
     }
 
-.edge-flow-drawer .category-logo-preview {
-      background: rgba(45, 101, 214, .08);
-      border-color: rgba(45, 101, 214, .22);
-      color: var(--blue);
-      overflow: hidden;
+.edge-flow-drawer .category-logo-preview {      background: rgba(45, 101, 214, .08);      border-color: rgba(45, 101, 214, .22);
+      color: var(--blue);      overflow: hidden;
     }
 
-.edge-flow-drawer .category-logo-preview img {
-      width: 34px;
-      height: 34px;
-      display: block;
-      object-fit: contain;
-    }
+.edge-flow-drawer .category-logo-preview img {      width: 34px;
+      height: 34px;      display: block;
+      object-fit: contain;    }
 
 .edge-flow-drawer .category-logo-preview img[src^="data:"] {
       width: 100%;
@@ -6004,18 +5992,12 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
       }
 
       .tsl-preview-arrow {
-        min-height: 16px;
-      }
+        min-height: 16px;      }
     }
-
 .detail-stack { display: grid; gap: 12px; }
-
-.detail-card {
-      border: 1px solid #ebeef5;
-      border-radius: var(--radius);
+.detail-card {      border: 1px solid #ebeef5;      border-radius: var(--radius);
       background: #fff;
-      padding: 16px;
-    }
+      padding: 16px;    }
 
 .detail-card-head {
       display: flex;
@@ -8007,18 +7989,12 @@ a {
 }
 
 .device-mqtt-actions {
-  display: flex;
-  align-items: center;
-  min-height: 40px;
+  display: flex;  align-items: center;  min-height: 40px;
   margin-bottom: 12px;
-}
-
-.device-mqtt-page .info-alert {
+}.device-mqtt-page .info-alert {
   margin: 0 0 14px;
 }
-
-.device-mqtt-code {
-  min-height: 260px;
+.device-mqtt-code {  min-height: 260px;
   margin: 0;
   padding: 18px;
   overflow: auto;
@@ -10008,22 +9984,16 @@ select[data-compact-source] {
 
 .scene-edit-index {
   color: #303133;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 13px;  font-weight: 500;
   white-space: nowrap;
 }
-
-.scene-edit-row input,
-.scene-edit-row select {
+.scene-edit-row input,.scene-edit-row select {
   width: 100%;
-  min-width: 0;
-  height: 32px;
-  border: 1px solid #dcdfe6;
-  border-radius: var(--radius);
+  min-width: 0;  height: 32px;
+  border: 1px solid #dcdfe6;  border-radius: var(--radius);
   background: #fff;
   color: #303133;
-  padding: 0 10px;
-  font-size: 13px;
+  padding: 0 10px;  font-size: 13px;
 }
 
 .scene-edit-row .scene-action-summary {
@@ -11920,7 +11890,7 @@ select[data-compact-source] {
 }
 
 .editor-drawer {
-  width: min(680px, calc(100vw - 60px)) !important;
+  width: min(560px, calc(100vw - 60px)) !important;
 }
 
 .drawer.wide {
@@ -11928,19 +11898,19 @@ select[data-compact-source] {
 }
 
 .drawer.category-editor-drawer {
-  width: min(680px, calc(100vw - 60px)) !important;
+  width: min(560px, calc(100vw - 60px)) !important;
   box-shadow: none !important;
   border-left: 1px solid #dfe7ef;
 }
 
 .drawer.unified-editor-drawer {
-  width: min(680px, calc(100vw - 60px)) !important;
+  width: min(560px, calc(100vw - 60px)) !important;
   box-shadow: none !important;
   border-left: 1px solid #dfe7ef;
 }
 
 .edge-drawer {
-  width: min(680px, calc(100vw - 60px)) !important;
+  width: min(560px, calc(100vw - 60px)) !important;
 }
 
 .unified-editor-drawer .drawer-head,
@@ -12008,27 +11978,21 @@ select[data-compact-source] {
   white-space: nowrap;
   text-align: right;
 }
-
 .shared-editor-form .form-line > label::after {
   content: "：";
   margin-left: 1px;
 }
 
-.shared-editor-form .form-line > label.required::before {
-  content: "*";
-  color: #f56c6c;
+.shared-editor-form .form-line > label.required::before {  content: "*";  color: #f56c6c;
   margin-right: 4px;
 }
 
-.shared-editor-form .form-line > input,
-.shared-editor-form .form-line > select,
-.shared-editor-form .form-line > textarea,
+.shared-editor-form .form-line > input,.shared-editor-form .form-line > select,.shared-editor-form .form-line > textarea,
 .shared-editor-form .form-line > .input-with-actions,
 .shared-editor-form .form-line > .editor-radio-group,
 .shared-editor-form .form-line > .label-edit-field {
   width: min(100%, 420px);
-  min-height: 38px;
-  box-sizing: border-box;
+  min-height: 38px;  box-sizing: border-box;
 }
 
 .shared-editor-form .form-line > input,
@@ -14008,32 +13972,26 @@ select[data-compact-source] {
   width: 1px;
   height: 12px;
   background: #e6ebf2;
-  transform: translateY(-50%);
-}
+  transform: translateY(-50%);}
 
 .dashboard-page .dashboard-grid {
   grid-template-columns: minmax(640px, 1.72fr) minmax(320px, .88fr) !important;
   gap: 16px;
   align-items: stretch;
 }
-
 .dashboard-page .map-panel {
-  min-height: 558px;
-}
+  min-height: 558px;}
 
 .dashboard-page .map-shell {
-  height: 500px;
-  min-height: 500px;
+  height: 500px;  min-height: 500px;
   margin: 0;
-  padding: 14px 16px 16px;
-  background:
+  padding: 14px 16px 16px;  background:
     linear-gradient(180deg, rgba(45, 101, 214, .04), rgba(255,255,255,0) 42%),
     #fff;
 }
 
 .dashboard-page .map-viewport {
-  position: relative;
-  height: 100%;
+  position: relative;  height: 100%;
   min-height: 0;
   overflow: hidden;
   border: 1px solid #edf1f7;
@@ -15012,12 +14970,12 @@ select[data-compact-source] {
 }
 
 .confirm-simple-body {
-  min-height: 104px;
+  min-height: 0;
   display: grid;
   grid-template-columns: 34px 1fr;
   gap: 12px;
   align-items: flex-start;
-  padding: 28px 28px 22px;
+  padding: 20px 24px 16px;
 }
 
 .confirm-simple-body p {
@@ -15064,7 +15022,7 @@ select[data-compact-source] {
 }
 
 .confirm-simple-foot {
-  padding: 12px 20px 18px;
+  padding: 12px 20px 14px;
   border-top: 0;
   background: #fff;
 }
@@ -15139,4 +15097,627 @@ td.row-actions .link-cell.danger:focus-visible,
   .confirm-simple-body {
     padding: 24px 22px 18px;
   }
+}
+
+/* ---- 操作按钮图标（2026-10-27） ---- */
+.link-cell.has-op-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.link-cell .op-icon {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  display: block;
+  pointer-events: none;
+}
+
+.link-cell.danger .op-icon {
+  opacity: .95;
+}
+
+/* ---- 页面头部去掉渐变卡片，改为贴底平铺（2026-10-27） ---- */
+.page-head,
+.page-head.page-head-inline {
+  min-height: 44px;
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.page-head .page-title,
+.page-head.page-head-inline .page-title {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+}
+
+.page-head .breadcrumb {
+  font-size: 13px;
+}
+
+/* ---- 发布状态：改为滑动开关（2026-10-27） ---- */
+.category-status-toggle {
+  position: relative;
+  width: 40px;
+  min-width: 40px;
+  height: 20px;
+  padding: 0 6px 0 0;
+  border: 0;
+  border-radius: 999px;
+  background: #dcdfe6 !important;
+  color: #5e6875 !important;
+  font-size: 10px;
+  line-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  vertical-align: middle;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background .2s;
+}
+
+.category-status-toggle i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff !important;
+  transition: left .2s;
+}
+
+.category-status-toggle.on {
+  padding: 0 0 0 6px;
+  background: #2d65d6 !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  justify-content: flex-start;
+}
+
+.category-status-toggle.on i {
+  left: 22px;
+  background: #fff !important;
+}
+
+/* ---- 排序号：表格内改为 −/＋ 步进器（2026-10-27） ---- */
+.sort-stepper-cell {
+  display: inline-flex;
+  align-items: center;
+  width: 140px;
+  height: 32px;
+  border: 1px solid #dfe3ea;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+  vertical-align: middle;
+}
+
+.sort-stepper-cell button {
+  width: 34px;
+  min-width: 34px;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  background: #f4f6f9;
+  color: #a7afbd;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color .15s ease, background .15s ease;
+}
+
+.sort-stepper-cell button:hover {
+  color: #2d65d6;
+  background: #edf2fc;
+}
+
+.sort-stepper-cell button:active {
+  background: #e3ebfa;
+}
+
+.sort-stepper-cell .sort-stepper-input {
+  flex: 1;
+  min-width: 0;
+  width: 72px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid #e9ecf2;
+  border-right: 1px solid #e9ecf2;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
+  color: #3a4150;
+  font-size: 13px;
+  text-align: center;
+  box-shadow: none;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.sort-stepper-cell .sort-stepper-input:hover,
+.sort-stepper-cell .sort-stepper-input:focus {
+  border-color: #e9ecf2;
+  background: #fff;
+  box-shadow: none;
+}
+
+.sort-stepper-cell .sort-stepper-input::-webkit-outer-spin-button,
+.sort-stepper-cell .sort-stepper-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ---- 品类卡片视图补复选框（2026-10-27） ---- */
+.category-card .category-title > .card-select {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--blue);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.category-card:has(.card-select:checked) {
+  border-color: #b6cbf0;
+  box-shadow: 0 0 0 2px rgba(45, 101, 214, .09);
+}
+
+/* ---- 品类/产品/设备配置页：详情、标签区字号整体放大（2026-10-27） ---- */
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-section h2 {
+  min-height: 26px;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-desc-grid {
+  row-gap: 20px;
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-desc-grid div {
+  min-height: 26px;
+  grid-template-columns: 106px minmax(0, 1fr);
+}
+
+:is(.product-config-page, .device-config-page) .category-source-desc-grid div {
+  grid-template-columns: 140px minmax(0, 1fr) auto;
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-label-row {
+  min-height: 26px;
+  grid-template-columns: 106px minmax(0, 1fr);
+}
+
+:is(.product-config-page, .device-config-page) .category-source-label-row {
+  grid-template-columns: 140px minmax(0, 1fr);
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-label {
+  font-size: 15px;
+  line-height: 26px;
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-value,
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-tags {
+  font-size: 15px;
+  line-height: 26px;
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-tag {
+  min-height: 26px;
+  font-size: 13px;
+}
+
+:is(.category-config-page, .product-config-page, .device-config-page) .category-source-edit-link {
+  font-size: 14px;
+}
+
+/* ---- 排序列：表头与步进器居中对齐（2026-10-27） ---- */
+.data-table th.col-center,
+.data-table td.col-center {
+  text-align: center;
+}
+
+.data-table td.col-center .sort-stepper-cell {
+  vertical-align: middle;
+}
+
+/* 排序列列宽 == 步进器 140 + 左右内边距 20，避免控件溢出内容盒导致偏右 */
+.data-table th.col-center {
+  width: 160px;
+}
+
+/* =====================================================================
+   编辑侧边栏表单统一：左标签 + 全宽控件 + 32 高灰边框（2026-10-27）
+   覆盖品类 / 产品 / 设备 / 固件包 / 分组 / MQTT 账号
+   ===================================================================== */
+.drawer .category-editor-grid,
+.drawer .shared-editor-grid {
+  gap: 16px;
+}
+
+.drawer .category-editor-field,
+.drawer .shared-editor-form .form-line {
+  grid-template-columns: 92px minmax(0, 1fr);
+  column-gap: 8px;
+  row-gap: 8px;
+  align-items: center;
+}
+
+.drawer .category-editor-field > label,
+.drawer .shared-editor-form .form-line > label {
+  width: 92px !important;
+  min-height: 32px !important;
+  color: #606266 !important;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  justify-content: flex-end !important;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.drawer .category-editor-field > label::after,
+.drawer .shared-editor-form .form-line > label::after {
+  content: none !important;
+}
+
+/* 输入框 / 下拉 / 文本域：占满右侧一栏 */
+.drawer .category-editor-field > input,
+.drawer .category-editor-field > select,
+.drawer .shared-editor-form .form-line > input,
+.drawer .shared-editor-form .form-line > select {
+  width: 100%;
+  max-width: none;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #3a4150;
+  font-size: 14px;
+  box-sizing: border-box;
+  box-shadow: none !important;
+}
+
+.drawer .category-editor-field > textarea,
+.drawer .shared-editor-form .form-line > textarea {
+  width: 100%;
+  max-width: none;
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #3a4150;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+  box-shadow: none !important;
+}
+
+.drawer .category-editor-field > input:focus,
+.drawer .category-editor-field > textarea:focus,
+.drawer .shared-editor-form .form-line > input:focus,
+.drawer .shared-editor-form .form-line > textarea:focus {
+  border-color: #2d65d6;
+  outline: none !important;
+}
+
+.drawer .category-editor-field > input::placeholder,
+.drawer .category-editor-field > textarea::placeholder,
+.drawer .shared-editor-form .form-line > input::placeholder,
+.drawer .shared-editor-form .form-line > textarea::placeholder {
+  color: #c0c4cc;
+}
+
+/* 输入框 + 右侧按钮 */
+.drawer .category-editor-field > .input-with-actions,
+.drawer .shared-editor-form .form-line > .input-with-actions {
+  width: 100%;
+  min-height: 32px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+}
+
+.drawer .category-editor-field .input-with-actions input,
+.drawer .shared-editor-form .input-with-actions input {
+  height: 32px;
+  min-height: 32px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  box-shadow: none !important;
+}
+
+.drawer .category-editor-field .input-with-actions .btn,
+.drawer .shared-editor-form .input-with-actions .btn {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #dcdfe6;
+  background: #fff;
+  color: #3a4150;
+  box-shadow: none !important;
+}
+
+.drawer .category-editor-field .input-with-actions .btn:hover,
+.drawer .shared-editor-form .input-with-actions .btn:hover {
+  border-color: #2d65d6;
+  color: #2d65d6;
+}
+
+/* 自定义下拉：32 高、灰色边框、箭头收进框内 */
+.drawer .compact-select {
+  width: 100%;
+  max-width: none;
+  height: 32px;
+}
+
+.drawer .compact-select-group {
+  height: 32px;
+  border-color: #dcdfe6;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.drawer .compact-select-main,
+.drawer .compact-select-arrow {
+  height: 32px;
+  background: transparent;
+}
+
+.drawer .compact-select-main {
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.drawer .compact-select-arrow {
+  width: 26px;
+  font-size: 0;
+}
+
+.drawer .compact-select-arrow::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.2px solid #b6bfcc;
+  border-bottom: 1.2px solid #b6bfcc;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.drawer .compact-select.open .compact-select-group {
+  border-color: #2d65d6;
+  box-shadow: none;
+}
+
+/* 单选：蓝底白勾 */
+.drawer .category-radio-group,
+.drawer .editor-radio-group {
+  min-height: 32px;
+  align-items: center;
+  gap: 22px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.drawer .category-radio-option,
+.drawer .editor-radio-option {
+  min-height: 32px;
+  gap: 8px;
+  color: #3a4150;
+  font-size: 14px;
+}
+
+.drawer .category-radio-option input[type="radio"],
+.drawer .editor-radio-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #dcdfe6;
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+  flex: 0 0 auto;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+.drawer .category-radio-option input[type="radio"]:hover,
+.drawer .editor-radio-option input[type="radio"]:hover {
+  border-color: #2d65d6;
+}
+
+.drawer .category-radio-option input[type="radio"]:checked,
+.drawer .editor-radio-option input[type="radio"]:checked {
+  border-color: #2d65d6;
+  background: #2d65d6;
+}
+
+.drawer .category-radio-option input[type="radio"]:checked::after,
+.drawer .editor-radio-option input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  transform: none;
+}
+
+/* 禁用态：明确「不可点」而不是看起来能点 */
+.drawer .category-radio-option input[type="radio"]:disabled,
+.drawer .editor-radio-option input[type="radio"]:disabled {
+  border-color: #e4e7ed;
+  background: #f5f7fa;
+  cursor: not-allowed;
+}
+
+.drawer .category-radio-option input[type="radio"]:disabled:checked,
+.drawer .editor-radio-option input[type="radio"]:disabled:checked {
+  border-color: #c8cdd6;
+  background: #c8cdd6;
+}
+
+.drawer .category-radio-option:has(input:disabled),
+.drawer .editor-radio-option:has(input:disabled) {
+  color: #b4b9c4;
+  cursor: not-allowed;
+}
+
+/* 图标行：去掉虚线卡片，图标 + 文件名 + 选择按钮 */
+.drawer .category-logo-field {
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawer .category-logo-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.drawer .category-logo-meta strong {
+  font-size: 14px;
+  font-weight: 500;
+  color: #303133;
+}
+
+.drawer .category-logo-meta span {
+  font-size: 12px;
+  color: #909399;
+}
+
+.drawer .category-logo-field .btn {
+  height: 32px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  background: #fff;
+  color: #3a4150;
+  font-size: 13px;
+  box-shadow: none !important;
+}
+
+.drawer .category-logo-field .btn:hover {
+  border-color: #2d65d6;
+  color: #2d65d6;
+}
+
+.drawer .category-logo-field .btn::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: currentColor;
+  -webkit-mask: url("assets/icons/editor-upload.svg") center / 14px 14px no-repeat;
+  mask: url("assets/icons/editor-upload.svg") center / 14px 14px no-repeat;
+}
+
+/* 排序号步进器 */
+.drawer .editor-sort-stepper {
+  width: 140px;
+  margin: 0;
+}
+
+/* 多行字段：标签贴顶 */
+.drawer .category-editor-field:has(textarea),
+.drawer .category-editor-field:has(.category-guide-editor),
+.drawer .shared-editor-form .form-line.textarea-line,
+.drawer .shared-editor-form .form-line:has(textarea) {
+  align-items: start;
+}
+
+.drawer .category-editor-field:has(textarea) > label,
+.drawer .category-editor-field:has(.category-guide-editor) > label,
+.drawer .shared-editor-form .form-line.textarea-line > label,
+.drawer .shared-editor-form .form-line:has(textarea) > label {
+  min-height: 20px !important;
+  padding-top: 7px;
+}
+
+/* 图标行：标签与图标垂直居中 */
+.drawer .category-editor-field:has(.category-logo-field),
+.drawer .product-editor-form .product-logo-line,
+.drawer .device-editor-form .device-logo-line {
+  align-items: center;
+}
+
+.drawer .category-editor-field:has(.category-logo-field) > label,
+.drawer .product-editor-form .product-logo-line > label,
+.drawer .device-editor-form .device-logo-line > label {
+  min-height: 32px !important;
+  padding-top: 0;
+}
+
+.drawer .device-editor-form .device-desc-line > textarea,
+.drawer .category-guide-editor {
+  width: 100%;
+  max-width: none;
+}
+
+.drawer .category-guide-editor {
+  border-color: #dcdfe6;
+  border-radius: 4px;
+}
+
+.drawer .category-guide-toolbar {
+  height: auto;
+  background: #fff;
+  border-bottom-color: #ebeef5;
+}
+
+.drawer .category-guide-toolbar .cg-btn {
+  color: #606266;
+  background: transparent;
+}
+
+.drawer .category-guide-toolbar .cg-btn:hover {
+  color: #303133;
+  background: #f2f3f5;
+}
+
+.drawer .category-guide-toolbar .cg-btn.is-active {
+  background: #f2f3f5;
+}
+
+/* =====================================================================
+   设备描述：富文本输入区加高（2026-10-27）
+   ===================================================================== */
+.device-editor-form .device-desc-line .category-guide-editor textarea {
+  height: auto;
+  min-height: 150px;
 }
