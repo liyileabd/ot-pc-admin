@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261027sysdlg2" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261027srvcol3" />
 </head>
 <body>
   <div id="root"></div>
@@ -6678,7 +6678,7 @@
       </tr>`).join("") || `<tr><td colspan="5"><div class="empty">暂无服务端订阅</div></td></tr>`;
       return `<div class="product-list-tab-page">
         <div class="tsl-toolbar product-list-inline-toolbar"><div class="tsl-toolbar-left"><div class="tsl-toolbar-title">服务端订阅列表</div></div><div class="tsl-toolbar-actions"><button class="btn compact" data-route="/iot/server/relay?productKey=${safeText(product.productKey)}">前往编辑订阅</button><button class="toolbar-icon-btn category-config-refresh" data-action="productListTabRefresh" data-label="服务端订阅" title="刷新服务端订阅" aria-label="刷新服务端订阅"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 6.4A7.5 7.5 0 0 0 5.2 9.3"></path><path d="M5 5v4.5h4.5"></path><path d="M6.4 17.6a7.5 7.5 0 0 0 12.4-2.9"></path><path d="M19 19v-4.5h-4.5"></path></svg></button></div></div>
-        <div class="table-panel product-wide-table-panel"><table class="data-table compact product-server-table"><colgroup><col style="width:42px"><col style="width:54px"><col style="width:240px"><col style="width:240px"><col></colgroup><thead><tr><th></th><th>#</th><th>所属产品</th><th>消费组</th><th>功能类型</th></tr></thead><tbody>${body}</tbody></table></div>
+        <div class="table-panel product-wide-table-panel"><table class="data-table compact product-server-table"><colgroup><col style="width:42px"><col style="width:54px"><col><col><col></colgroup><thead><tr><th></th><th>#</th><th>所属产品</th><th>消费组</th><th>功能类型</th></tr></thead><tbody>${body}</tbody></table></div>
         ${systemPagination(rows.length, 10)}
       </div>`;
     }

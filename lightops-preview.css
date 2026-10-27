@@ -15856,3 +15856,29 @@ td.row-actions .link-cell.danger:focus-visible,
 
 .system-form-dialog .category-editor-section,
 .system-form-dialog .shared-editor-section { padding: 0; }
+
+/* ---- 服务端订阅列表：列宽均分 + 列间距拉开（2026-10-27） ---- */
+.product-server-table {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 760px;
+}
+
+.product-server-table.data-table th,
+.product-server-table.data-table td {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.product-server-table.data-table th:first-child,
+.product-server-table.data-table td:first-child {
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+}
+
+.product-server-table.data-table th:nth-child(2),
+.product-server-table.data-table td:nth-child(2) {
+  padding-left: 10px;
+  padding-right: 10px;
+}
