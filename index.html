@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261027opscen1" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261027sysdlg2" />
 </head>
 <body>
   <div id="root"></div>
@@ -12610,7 +12610,7 @@
       const readonlyAttr = readonly ? "readonly" : "";
       const disabled = readonly ? "disabled" : "";
       const parentDisabled = readonly || item.parentLocked ? "disabled" : "";
-      return `<aside class="drawer open unified-editor-drawer system-menu-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
+      return `<div class="modal-mask"><div class="modal system-form-dialog system-menu-form-drawer"><div class="modal-head"><span>${title}</span><button class="btn text" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="modal-body">
         <div class="shared-editor-form category-editor-relaxed system-menu-side-form">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">菜单信息</div>
@@ -12629,7 +12629,7 @@
             </div>
           </section>
         </div>
-      </div><div class="drawer-foot">${readonly ? `<button class="btn primary" data-action="closeDrawer">返回</button>` : `<button class="btn" data-action="closeDrawer">取消</button><button class="btn primary" data-action="systemMenuFormSave">保存</button>`}</div></aside>`;
+      </div><div class="modal-foot">${readonly ? `<button class="btn" data-action="closeDrawer">返 回</button>` : `<button class="btn" data-action="closeDrawer">取 消</button><button class="btn primary" data-action="systemMenuFormSave">确 定</button>`}</div></div></div>`;
     }
     function systemClientFormDrawer() {
       const data = state.drawerData || {};
@@ -12639,7 +12639,7 @@
       const title = `${mode === "add" ? "新增" : mode === "view" ? "查看" : "编辑"}应用`;
       const readonlyAttr = readonly ? "readonly" : "";
       const input = (key, label, required = false, type = "text", placeholder = "") => `<div class="form-line"><label class="${required ? "required" : ""}" for="system-client-${key}">${label}</label><input id="system-client-${key}" type="${type}" value="${safeText(item[key] ?? "")}" placeholder="${safeText(placeholder)}" ${readonlyAttr}></div>`;
-      return `<aside class="drawer open unified-editor-drawer system-client-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
+      return `<div class="modal-mask"><div class="modal system-form-dialog system-client-form-drawer"><div class="modal-head"><span>${title}</span><button class="btn text" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="modal-body">
         <div class="shared-editor-form category-editor-relaxed system-client-side-form">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">应用信息</div>
@@ -12657,7 +12657,7 @@
             </div>
           </section>
         </div>
-      </div><div class="drawer-foot">${readonly ? `<button class="btn primary" data-action="closeDrawer">返回</button>` : `<button class="btn" data-action="closeDrawer">取消</button><button class="btn primary" data-action="systemClientFormSave">保存</button>`}</div></aside>`;
+      </div><div class="modal-foot">${readonly ? `<button class="btn" data-action="closeDrawer">返 回</button>` : `<button class="btn" data-action="closeDrawer">取 消</button><button class="btn primary" data-action="systemClientFormSave">确 定</button>`}</div></div></div>`;
     }
     function systemDeptFormDrawer() {
       const data = state.drawerData || {};
@@ -12722,7 +12722,7 @@
         ? `<div class="form-line"><label class="required" for="system-user-password">密码</label><input id="system-user-password" type="password" value="${safeText(item.password || "")}" placeholder="请输入密码"></div>
           <div class="form-line"><label class="required" for="system-user-password2">确认密码</label><input id="system-user-password2" type="password" value="${safeText(item.password2 || "")}" placeholder="请再次输入密码"></div>`
         : "";
-      return `<aside class="drawer open unified-editor-drawer system-user-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
+      return `<div class="modal-mask"><div class="modal system-form-dialog system-user-form-drawer"><div class="modal-head"><span>${title}</span><button class="btn text" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="modal-body">
         <div class="shared-editor-form category-editor-relaxed system-user-side-form">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">用户信息</div>
@@ -12743,7 +12743,7 @@
             </div>
           </section>
         </div>
-      </div><div class="drawer-foot">${readonly ? `<button class="btn primary" data-action="closeDrawer">返回</button>` : `<button class="btn" data-action="closeDrawer">取消</button><button class="btn primary" data-action="systemUserFormSave">保存</button>`}</div></aside>`;
+      </div><div class="modal-foot">${readonly ? `<button class="btn" data-action="closeDrawer">返 回</button>` : `<button class="btn" data-action="closeDrawer">取 消</button><button class="btn primary" data-action="systemUserFormSave">确 定</button>`}</div></div></div>`;
     }
     function systemGrantTree(type) {
       const nodes = type === "role"
