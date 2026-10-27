@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261027formall1" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261027grouptree2" />
 </head>
 <body>
   <div id="root"></div>
@@ -1888,6 +1888,7 @@
         }
       ],
       groupTreeId: "all",
+      groupTreeCollapsed: {},
       groups: [
         { id: "g-001", groupName: "楼宇总组", groupDesc: "全部楼宇设备", sort: 1, createTime: "2024-06-18 09:20:12", parentId: 0, parentName: "根分组" },
         { id: "g-002", groupName: "一号楼", groupDesc: "一号楼设备集合", sort: 2, createTime: "2024-06-18 09:24:34", parentId: "g-001", parentName: "楼宇总组" },
@@ -5522,7 +5523,17 @@
         return matchesKeyword(node) ? node : children.length ? { ...node, children } : null;
       };
       const visibleNodes = nodes.map(filterNode).filter(Boolean);
-      const renderNode = (node, depth = 0) => `<button class="tree-node ${state.groupTreeId === node.id ? "active" : ""}" data-action="groupTree" data-tree-id="${node.id}" style="padding-left:${12 + depth * 14}px">${node.title}</button>${node.children ? node.children.map(child => renderNode(child, depth + 1)).join("") : ""}`;
+      const collapsed = state.groupTreeCollapsed || {};
+      const renderNode = (node, depth = 0) => {
+        const hasChildren = Array.isArray(node.children) && node.children.length > 0;
+        const isCollapsed = !!collapsed[node.id];
+        const caret = hasChildren
+          ? `<button type="button" class="tree-caret${isCollapsed ? " collapsed" : ""}" data-action="groupTreeToggle" data-tree-id="${node.id}" aria-label="${isCollapsed ? "展开" : "收起"}"></button>`
+          : `<span class="tree-caret is-leaf"></span>`;
+        const row = `<div class="tree-row${state.groupTreeId === node.id ? " active" : ""}" style="padding-left:${12 + depth * 14}px">${caret}<button type="button" class="tree-node-label" data-action="groupTree" data-tree-id="${node.id}">${node.title}</button></div>`;
+        const kids = hasChildren && !isCollapsed ? node.children.map(child => renderNode(child, depth + 1)).join("") : "";
+        return row + kids;
+      };
       const treeHtml = visibleNodes.map(node => renderNode(node)).join("");
       return treeHtml + (keyword && !visibleNodes[0]?.children?.length ? `<div class="tree-empty">暂无匹配分组</div>` : "");
     }
@@ -14395,6 +14406,12 @@
           pickCompactSelectElement(el.closest(".compact-select") || document.querySelector(`[data-compact-select="${CSS.escape(el.dataset.compactSelect || "")}"]`), el.dataset.value || "");
         }
         if (action === "groupTree") { state.groupTreeId = el.dataset.treeId; state.groupFilter.treeId = el.dataset.treeId; render(); }
+        if (action === "groupTreeToggle") {
+          const treeId = el.dataset.treeId || "";
+          if (!state.groupTreeCollapsed) state.groupTreeCollapsed = {};
+          state.groupTreeCollapsed[treeId] = !state.groupTreeCollapsed[treeId];
+          render();
+        }
         if (action === "sceneSearch") { state.sceneFilter.name = document.getElementById("sceneName")?.value.trim() || ""; state.sceneFilter.status = document.getElementById("sceneStatus")?.value || ""; state.sceneFilter.source = ""; closeCompactSelects(); render(); }
         if (action === "sceneClear") { state.sceneFilter = { name: "", status: "", source: "" }; state.sceneSelection = []; closeCompactSelects(); render(); }
         if (action === "sceneRefresh") { state.sceneLastRefresh = nowText(); render(); showToast("场景联动已刷新"); }
