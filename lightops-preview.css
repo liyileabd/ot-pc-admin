@@ -6121,7 +6121,17 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
 }
 
 .ota-task-table {
-  min-width: 840px;
+  min-width: 1020px;
+}
+
+.ota-task-toolbar {
+  min-height: 32px;
+  padding: 0 0 10px;
+  border-bottom: 0;
+}
+
+.ota-task-toolbar .tsl-toolbar-actions {
+  align-items: center;
 }
 
 .ota-progress-cell {

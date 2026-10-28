@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261027srvcol3" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261028otatask2" />
 </head>
 <body>
   <div id="root"></div>
@@ -1408,6 +1408,7 @@
       deviceLocationDrafts: {},
       deviceMqttUpdatedAt: {},
       otaDevicesAutoReload: false,
+      otaTaskAutoReload: false,
       deviceDetailSelections: { group: [], subset: [] },
       deviceGroupBindings: {
         "d-001": [{ id: "g-001", groupName: "楼宇总组", createTime: "2026-08-03 10:12:30" }],
@@ -8346,21 +8347,25 @@
       if (activeKey === "task") {
         const rows = ota.tasks || [];
         const statusText = status => status === "completed" ? "已完成" : status === "pending" ? "待执行" : "执行中";
-        const body = rows.map(item => {
+        const body = rows.map((item, index) => {
           const taskDevices = (ota.devices || []).filter(device => device.taskName === item.task);
           const statusClass = item.status === "completed" ? "success" : item.status === "pending" ? "warning" : "primary";
+          const targetVersion = item.version || ota.firmwareVersion || "-";
+          const deviceCount = item.deviceCount != null ? item.deviceCount : (taskDevices.length || ota.deviceCount || 0);
+          const createdTime = item.createTime || ota.createTime || "-";
           return `<tr>
             <td>${safeText(item.task || "-")}</td>
             <td><span class="status-badge ${statusClass}">${safeText(statusText(item.status))}</span></td>
             <td><div class="ota-progress-cell"><div class="progress"><span style="width:${Number(item.progress || 0)}%"></span></div><em>${Number(item.progress || 0)}%</em></div></td>
-            <td><span class="status-badge primary">${safeText(ota.firmwareVersion || "-")}</span></td>
-            <td>${taskDevices.length || ota.deviceCount || 0}</td>
-            <td>${safeText(ota.createTime || "-")}</td>
+            <td><span class="status-badge primary">${safeText(targetVersion)}</span></td>
+            <td>${deviceCount}</td>
+            <td>${safeText(createdTime)}</td>
+            <td class="row-actions"><button class="link-cell" data-action="otaTaskDetail" data-ota="${safeText(ota.id)}" data-idx="${index}">详情</button><button class="link-cell" data-action="otaTaskEdit" data-ota="${safeText(ota.id)}" data-idx="${index}">编辑</button></td>
           </tr>`;
-        }).join("") || `<tr><td colspan="6"><div class="empty compact">暂无任务信息</div></td></tr>`;
+        }).join("") || `<tr><td colspan="7"><div class="empty compact">暂无任务信息</div></td></tr>`;
         return `<section class="category-source-section ota-task-section">
-          <h2>任务信息</h2>
-          <div class="table-panel"><table class="data-table compact ota-task-table"><thead><tr><th>任务名称</th><th style="width:110px">任务状态</th><th style="width:180px">升级进度</th><th style="width:110px">目标版本</th><th style="width:90px">设备数量</th><th style="width:170px">创建时间</th></tr></thead><tbody>${body}</tbody></table></div>
+          <div class="tsl-toolbar product-list-inline-toolbar ota-task-toolbar"><div class="tsl-toolbar-left"><strong>任务信息</strong></div><div class="tsl-toolbar-actions"><button class="btn primary compact" data-action="otaTaskAdd" data-ota="${safeText(ota.id)}">新增</button><button class="btn compact" data-action="otaTaskAutoReload">${state.otaTaskAutoReload ? "关闭刷新" : "自动刷新"}</button></div></div>
+          <div class="table-panel"><table class="data-table compact ota-task-table"><colgroup><col><col style="width:110px"><col style="width:180px"><col style="width:110px"><col style="width:90px"><col style="width:170px"><col style="width:150px"></colgroup><thead><tr><th>任务名称</th><th>任务状态</th><th>升级进度</th><th>目标版本</th><th>设备数量</th><th>创建时间</th><th>操作</th></tr></thead><tbody>${body}</tbody></table></div>
           ${systemPagination(rows.length, 10)}
         </section>`;
       }
@@ -8371,6 +8376,36 @@
         </section>`;
       }
       return otaInfoTab(ota, product);
+    }
+    function otaTaskFormModal() {
+      const data = state.modalData || {};
+      const ota = findOta(data.otaId) || state.otas[0];
+      const list = ota.tasks || [];
+      const task = data.index != null ? list[data.index] : null;
+      const mode = data.mode || "edit";
+      const readonly = mode === "view";
+      const title = mode === "add" ? "新增任务" : readonly ? "任务详情" : "编辑任务";
+      const value = task || { task: "", status: "pending", progress: 0 };
+      const taskDevices = (ota.devices || []).filter(device => device.taskName === (task ? task.task : ""));
+      const deviceCount = value.deviceCount != null ? value.deviceCount : (taskDevices.length || ota.deviceCount || 0);
+      const statusOptions = [["completed", "已完成"], ["pending", "待执行"], ["running", "执行中"]];
+      const dis = readonly ? " disabled" : "";
+      return `<div class="modal-mask"><div class="modal system-form-dialog ota-task-form-dialog">
+        <div class="modal-head"><span>${title}</span><button class="btn text" data-action="closeModal" aria-label="关闭">×</button></div>
+        <div class="modal-body">
+          <div class="shared-editor-form ota-task-form">
+            <div class="form-line"><label>任务名称</label><input id="ota-task-name" value="${safeText(value.task || "")}" placeholder="请输入任务名称"${dis}></div>
+            <div class="form-line"><label>任务状态</label><select id="ota-task-status"${dis}>${statusOptions.map(([key, label]) => `<option value="${key}"${(value.status || "pending") === key ? " selected" : ""}>${label}</option>`).join("")}</select></div>
+            <div class="form-line"><label>升级进度</label><input id="ota-task-progress" type="number" min="0" max="100" value="${Number(value.progress || 0)}"${dis}></div>
+            <div class="form-line"><label>目标版本</label><input id="ota-task-version" value="${safeText(value.version || ota.firmwareVersion || "")}"${dis}></div>
+            <div class="form-line"><label>设备数量</label><input id="ota-task-count" type="number" min="0" value="${Number(deviceCount)}"${dis}></div>
+            <div class="form-line"><label>创建时间</label><input id="ota-task-time" value="${safeText(value.createTime || ota.createTime || "")}"${dis}></div>
+          </div>
+        </div>
+        <div class="modal-foot">${readonly
+          ? `<button class="btn primary" data-action="closeModal">关 闭</button>`
+          : `<button class="btn" data-action="closeModal">取 消</button><button class="btn primary" data-action="otaTaskFormSave">确 定</button>`}</div>
+      </div></div>`;
     }
     function groupDetailPage() {
       const base = baseRoute(state.route);
@@ -13285,6 +13320,7 @@
       if (state.modal === "profileAvatar") html += profileAvatarModal();
       if (state.modal === "profilePassword") html += profilePasswordModal();
       if (state.modal === "categoryLabel") html += categoryLabelModal();
+      if (state.modal === "otaTaskForm") html += otaTaskFormModal();
       if (state.modal === "productLabel") html += productLabelModal();
       if (state.modal === "groupLabel") html += groupLabelModal();
       if (state.modal === "productScriptError") html += productScriptErrorModal();
@@ -14286,6 +14322,32 @@
         if (action === "otaDevicesAutoReload") { state.otaDevicesAutoReload = !state.otaDevicesAutoReload; render(); showToast(state.otaDevicesAutoReload ? "已开启自动刷新" : "已关闭自动刷新"); }
         if (action === "otaDevicesRefresh") { render(); showToast("设备列表已刷新"); }
         if (action === "otaTaskView") { showToast("任务详情抽屉已打开"); }
+        if (action === "otaTaskAutoReload") { state.otaTaskAutoReload = !state.otaTaskAutoReload; render(); showToast(state.otaTaskAutoReload ? "已开启自动刷新" : "已关闭自动刷新"); }
+        if (action === "otaTaskAdd") { state.modalData = { otaId: el.dataset.ota, mode: "add", index: null }; state.modal = "otaTaskForm"; render(); }
+        if (action === "otaTaskEdit") { state.modalData = { otaId: el.dataset.ota, mode: "edit", index: Number(el.dataset.idx) }; state.modal = "otaTaskForm"; render(); }
+        if (action === "otaTaskDetail") { state.modalData = { otaId: el.dataset.ota, mode: "view", index: Number(el.dataset.idx) }; state.modal = "otaTaskForm"; render(); }
+        if (action === "otaTaskFormSave") {
+          const data = state.modalData || {};
+          const ota = findOta(data.otaId) || state.otas[0];
+          const name = (document.getElementById("ota-task-name")?.value || "").trim();
+          if (!name) { showToast("请填写任务名称"); return; }
+          const next = {
+            task: name,
+            status: document.getElementById("ota-task-status")?.value || "pending",
+            progress: Math.max(0, Math.min(100, Number(document.getElementById("ota-task-progress")?.value || 0))),
+            version: (document.getElementById("ota-task-version")?.value || "").trim() || ota.firmwareVersion || "",
+            deviceCount: Math.max(0, Number(document.getElementById("ota-task-count")?.value || 0)),
+            createTime: (document.getElementById("ota-task-time")?.value || "").trim() || ota.createTime || ""
+          };
+          ota.tasks = ota.tasks || [];
+          if (data.mode === "add") ota.tasks.push(next);
+          else if (data.index != null && ota.tasks[data.index]) ota.tasks[data.index] = next;
+          state.modal = "";
+          state.modalData = null;
+          render();
+          showToast(data.mode === "add" ? "任务已创建" : "任务已保存");
+          return;
+        }
         if (action === "otaDeviceRetry") { const row = findOtaDeviceById(el.dataset.id); if (row) { row.upgradeStatus = "downloading"; row.progressPercent = Math.max(1, Number(row.progressPercent || 0)); row.retryCount = Number(row.retryCount || 0) + 1; render(); showToast("升级指令已重新下发，已自动开启监控!"); } }
         if (action === "otaDeviceCancel") { const row = findOtaDeviceById(el.dataset.id); if (row) { row.upgradeStatus = "cancelled"; render(); showToast("取消操作已执行!"); } }
         if (action === "otaDeviceError") { const row = findOtaDeviceById(el.dataset.id); showToast(row?.errorMessage || "未知错误"); }
@@ -15450,7 +15512,8 @@
       "删除": '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/>',
       "管理设备": '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
       "子分组": '<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M12 11.5v5"/><path d="M9.5 14h5"/>',
-      "权限设置": '<path d="M12 2.5 4.5 5.5v6c0 5 3.2 8.4 7.5 10 4.3-1.6 7.5-5 7.5-10v-6L12 2.5Z"/><path d="m9 12 2 2 4-4"/>'
+      "权限设置": '<path d="M12 2.5 4.5 5.5v6c0 5 3.2 8.4 7.5 10 4.3-1.6 7.5-5 7.5-10v-6L12 2.5Z"/><path d="m9 12 2 2 4-4"/>',
+      "详情": '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>'
     };
     var SVG_ATTR = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
 
