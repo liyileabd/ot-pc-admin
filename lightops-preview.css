@@ -10306,7 +10306,7 @@ select[data-compact-source] {
 }
 
 .simple-rich-body:empty::before {
-  content: "请输入通知内容";
+  content: attr(data-placeholder);
   color: #c0c4cc;
 }
 
@@ -15891,4 +15891,64 @@ td.row-actions .link-cell.danger:focus-visible,
 .product-server-table.data-table td:nth-child(2) {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+/* ---- OTA 任务编辑侧边栏（2026-10-28） ---- */
+.shared-editor-form.ota-task-form .form-line {
+  grid-template-columns: 104px minmax(0, 1fr);
+}
+
+.shared-editor-form.ota-task-form .form-line > label {
+  width: 104px !important;
+}
+
+.shared-editor-form.ota-task-form .form-line.rich-text-line {
+  align-items: start;
+}
+
+.shared-editor-form.ota-task-form .form-line.rich-text-line > label {
+  min-height: 32px !important;
+  padding-top: 6px;
+}
+
+.ota-task-form .simple-rich-editor {
+  width: 100%;
+  border-color: #dcdfe6;
+  border-radius: 4px;
+}
+
+.ota-task-form .rich-toolbar-full {
+  min-height: 0;
+  padding: 8px 8px 2px;
+}
+
+.ota-task-form .rich-toolbar-full .rich-tool-btn,
+.ota-task-form .rich-toolbar-full .rich-tool-select {
+  height: 28px;
+  margin: 0 2px 6px 0;
+  padding: 0 6px;
+  font-size: 12px;
+}
+
+.ota-task-form .rich-toolbar-full .rich-tool-select {
+  width: auto;
+  min-width: 76px;
+}
+
+.ota-task-form .simple-rich-body {
+  min-height: 200px;
+  font-size: 14px;
+}
+
+.shared-editor-form.ota-task-form .form-line > label::after {
+  content: ":" !important;
+  margin-left: 0;
+}
+
+.shared-editor-form.ota-task-form .compact-select-main {
+  color: #606266;
+}
+
+.shared-editor-form.ota-task-form .compact-select-main .placeholder {
+  color: #a8abb2;
 }

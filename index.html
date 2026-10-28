@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261028otatask2" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261028otadrawer4" />
 </head>
 <body>
   <div id="root"></div>
@@ -8377,35 +8377,38 @@
       }
       return otaInfoTab(ota, product);
     }
-    function otaTaskFormModal() {
-      const data = state.modalData || {};
+    function otaTaskFormDrawer() {
+      const data = state.drawerData || state.modalData || {};
       const ota = findOta(data.otaId) || state.otas[0];
       const list = ota.tasks || [];
       const task = data.index != null ? list[data.index] : null;
       const mode = data.mode || "edit";
       const readonly = mode === "view";
-      const title = mode === "add" ? "新增任务" : readonly ? "任务详情" : "编辑任务";
-      const value = task || { task: "", status: "pending", progress: 0 };
-      const taskDevices = (ota.devices || []).filter(device => device.taskName === (task ? task.task : ""));
-      const deviceCount = value.deviceCount != null ? value.deviceCount : (taskDevices.length || ota.deviceCount || 0);
-      const statusOptions = [["completed", "已完成"], ["pending", "待执行"], ["running", "执行中"]];
+      const title = mode === "add" ? "新增" : readonly ? "任务详情" : "编辑";
+      const value = task || {};
+      const roAttr = readonly ? " readonly" : "";
       const dis = readonly ? " disabled" : "";
-      return `<div class="modal-mask"><div class="modal system-form-dialog ota-task-form-dialog">
-        <div class="modal-head"><span>${title}</span><button class="btn text" data-action="closeModal" aria-label="关闭">×</button></div>
-        <div class="modal-body">
-          <div class="shared-editor-form ota-task-form">
-            <div class="form-line"><label>任务名称</label><input id="ota-task-name" value="${safeText(value.task || "")}" placeholder="请输入任务名称"${dis}></div>
-            <div class="form-line"><label>任务状态</label><select id="ota-task-status"${dis}>${statusOptions.map(([key, label]) => `<option value="${key}"${(value.status || "pending") === key ? " selected" : ""}>${label}</option>`).join("")}</select></div>
-            <div class="form-line"><label>升级进度</label><input id="ota-task-progress" type="number" min="0" max="100" value="${Number(value.progress || 0)}"${dis}></div>
-            <div class="form-line"><label>目标版本</label><input id="ota-task-version" value="${safeText(value.version || ota.firmwareVersion || "")}"${dis}></div>
-            <div class="form-line"><label>设备数量</label><input id="ota-task-count" type="number" min="0" value="${Number(deviceCount)}"${dis}></div>
-            <div class="form-line"><label>创建时间</label><input id="ota-task-time" value="${safeText(value.createTime || ota.createTime || "")}"${dis}></div>
-          </div>
+      const taskType = value.taskType || "平台推送";
+      const scope = value.scope || "指定设备";
+      const deviceSet = value.deviceSet || "";
+      const timeout = value.timeout != null ? value.timeout : 60;
+      const retry = value.retry != null ? value.retry : 3;
+      const concurrency = value.concurrency != null ? value.concurrency : 10;
+      const options = (list, current) => list.map(([val, label]) => `<option value="${val}"${current === val ? " selected" : ""}>${label}</option>`).join("");
+      return `<aside class="drawer open unified-editor-drawer ota-task-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
+        <div class="shared-editor-form ota-task-form">
+          <div class="form-line"><label class="required" for="ota-task-name">任务名称</label><input id="ota-task-name" value="${safeText(value.task || "")}" placeholder="请输入任务名称"${roAttr}></div>
+          <div class="form-line"><label class="required" for="ota-task-type">任务类型</label><select id="ota-task-type"${dis}>${options([["平台推送", "平台推送"], ["设备主动拉取", "设备主动拉取"]], taskType)}</select></div>
+          <div class="form-line"><label class="required" for="ota-task-scope">升级范围</label><select id="ota-task-scope"${dis}>${options([["指定设备", "指定设备"], ["全部设备", "全部设备"], ["按分组", "按分组"]], scope)}</select></div>
+          <div class="form-line"><label class="required" for="ota-task-set">设备集合</label><select id="ota-task-set"${dis}>${options([["", "请选择 设备集合"], ["set-all", "全部设备集合"], ["set-north", "北区设备集合"], ["set-south", "南区设备集合"]], deviceSet)}</select></div>
+          <div class="form-line"><label for="ota-task-timeout">超时时间(分钟)</label><input id="ota-task-timeout" type="number" min="1" value="${Number(timeout)}"${roAttr}></div>
+          <div class="form-line"><label for="ota-task-retry">重试次数</label><input id="ota-task-retry" type="number" min="0" value="${Number(retry)}"${roAttr}></div>
+          <div class="form-line"><label for="ota-task-concurrency">最大并发数</label><input id="ota-task-concurrency" type="number" min="1" value="${Number(concurrency)}"${roAttr}></div>
+          <div class="form-line rich-text-line"><label for="ota-task-desc">任务描述</label>${simpleRichEditor("ota-task-desc", value.desc || "", readonly, { full: true, placeholder: "请输入 任务描述" })}</div>
         </div>
-        <div class="modal-foot">${readonly
-          ? `<button class="btn primary" data-action="closeModal">关 闭</button>`
-          : `<button class="btn" data-action="closeModal">取 消</button><button class="btn primary" data-action="otaTaskFormSave">确 定</button>`}</div>
-      </div></div>`;
+      </div><div class="drawer-foot">${readonly
+        ? `<button class="btn primary" data-action="closeDrawer">返 回</button>`
+        : `<button class="btn" data-action="closeDrawer">取 消</button><button class="btn primary" data-action="otaTaskFormSave">保 存</button>`}</div></aside>`;
     }
     function groupDetailPage() {
       const base = baseRoute(state.route);
@@ -13068,10 +13071,38 @@
     function richToolButton(label, command, title, disabled) {
       return `<button type="button" class="rich-tool-btn" data-action="richCommand" data-command="${safeText(command)}" title="${safeText(title)}" ${disabled}>${safeText(label)}</button>`;
     }
-    function simpleRichEditor(id, content, readonly = false) {
+    function richToolButtonFor(id, label, command, title, disabled) {
+      return `<button type="button" class="rich-tool-btn" data-action="richCommand" data-target="${safeText(id)}" data-command="${safeText(command)}" title="${safeText(title)}" ${disabled}>${safeText(label)}</button>`;
+    }
+    function simpleRichEditor(id, content, readonly = false, options = {}) {
       const disabled = readonly ? "disabled" : "";
-      return `<div class="simple-rich-editor ${readonly ? "readonly" : ""}">
-        <div class="simple-rich-toolbar">
+      const full = !!options.full;
+      const placeholder = options.placeholder || "请输入通知内容";
+      const toolbar = full
+        ? `<div class="simple-rich-toolbar rich-toolbar-full compact-native-ignore">
+          <select class="rich-tool-select" data-action="richFormat" data-target="${safeText(id)}" ${disabled}><option value="p">正文</option><option value="h2">标题</option><option value="blockquote">引用</option></select>
+          <select class="rich-tool-select" data-action="richFontSize" data-target="${safeText(id)}" ${disabled}><option value="">默认字号</option><option value="2">12px</option><option value="3">14px</option><option value="4">16px</option><option value="5">18px</option><option value="7">24px</option></select>
+          <select class="rich-tool-select" data-action="richFontName" data-target="${safeText(id)}" ${disabled}><option value="">默认字体</option><option value="Microsoft YaHei">微软雅黑</option><option value="SimSun">宋体</option><option value="SimHei">黑体</option></select>
+          ${richToolButtonFor(id, "B", "bold", "加粗", disabled)}
+          ${richToolButtonFor(id, "U", "underline", "下划线", disabled)}
+          ${richToolButtonFor(id, "I", "italic", "斜体", disabled)}
+          ${richToolButtonFor(id, "S", "strikeThrough", "删除线", disabled)}
+          ${richToolButtonFor(id, "引用", "formatBlock", "引用", disabled)}
+          ${richToolButtonFor(id, "左", "justifyLeft", "左对齐", disabled)}
+          ${richToolButtonFor(id, "中", "justifyCenter", "居中", disabled)}
+          ${richToolButtonFor(id, "右", "justifyRight", "右对齐", disabled)}
+          ${richToolButtonFor(id, "两端", "justifyFull", "两端对齐", disabled)}
+          ${richToolButtonFor(id, "有序", "insertOrderedList", "有序列表", disabled)}
+          ${richToolButtonFor(id, "无序", "insertUnorderedList", "无序列表", disabled)}
+          ${richToolButtonFor(id, "缩进", "indent", "增加缩进", disabled)}
+          ${richToolButtonFor(id, "减缩进", "outdent", "减少缩进", disabled)}
+          ${richToolButtonFor(id, "链接", "createLink", "插入链接", disabled)}
+          ${richToolButtonFor(id, "图片", "insertImage", "插入图片", disabled)}
+          ${richToolButtonFor(id, "清格式", "removeFormat", "清除格式", disabled)}
+          ${richToolButtonFor(id, "↶", "undo", "撤销", disabled)}
+          ${richToolButtonFor(id, "↷", "redo", "重做", disabled)}
+        </div>`
+        : `<div class="simple-rich-toolbar">
           <select class="rich-tool-select" ${disabled}><option>正文</option><option>标题</option></select>
           ${richToolButton("B", "bold", "加粗", disabled)}
           ${richToolButton("U", "underline", "下划线", disabled)}
@@ -13083,8 +13114,10 @@
           ${richToolButton("C", "justifyCenter", "居中", disabled)}
           ${richToolButton("↶", "undo", "撤销", disabled)}
           ${richToolButton("↷", "redo", "重做", disabled)}
-        </div>
-        <div id="${safeText(id)}" class="simple-rich-body" contenteditable="${readonly ? "false" : "true"}">${richEditorHtml(content)}</div>
+        </div>`;
+      return `<div class="simple-rich-editor ${readonly ? "readonly" : ""}">
+        ${toolbar}
+        <div id="${safeText(id)}" class="simple-rich-body" data-placeholder="${safeText(placeholder)}" contenteditable="${readonly ? "false" : "true"}">${richEditorHtml(content)}</div>
       </div>`;
     }
     function pushTemplateDebugModal() {
@@ -13256,12 +13289,29 @@
       state.modalData = { ...(state.modalData || {}), debugParam: text };
       render();
     }
-    function runSimpleRichCommand(command) {
-      const editor = document.getElementById("pushNoticeFormContent");
+    let lastRichRange = null;
+    function restoreRichRange(editor) {
+      if (!lastRichRange) return;
+      const host = lastRichRange.commonAncestorContainer;
+      const el = host && host.nodeType === 1 ? host : host?.parentElement;
+      if (!el || !editor.contains(el)) return;
+      const sel = document.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(lastRichRange);
+    }
+    function runSimpleRichCommand(command, targetId = "pushNoticeFormContent", value = null) {
+      const editor = document.getElementById(targetId);
       if (!editor || editor.getAttribute("contenteditable") !== "true") return;
       editor.focus({ preventScroll: true });
-      if (command === "formatBlock") document.execCommand("formatBlock", false, "blockquote");
-      else document.execCommand(command, false, null);
+      restoreRichRange(editor);
+      if (command === "createLink" || command === "insertImage") {
+        const input = window.prompt(command === "createLink" ? "请输入链接地址" : "请输入图片地址", "https://");
+        if (!input) return;
+        document.execCommand(command, false, input);
+        return;
+      }
+      if (command === "formatBlock") document.execCommand("formatBlock", false, value || "blockquote");
+      else document.execCommand(command, false, value);
     }
     function placeholderPage(title) {
       return `${pageHeader(state.route, { title })}<section class="panel"><div class="section-title">${title}</div><div class="empty">当前 chunk 暂未复刻，已保留路由占位。</div></section>`;
@@ -13284,6 +13334,7 @@
       else if (state.drawer === "systemDeptForm") html += systemDeptFormDrawer();
       else if (state.drawer === "systemMenuForm") html += systemMenuFormDrawer();
       else if (state.drawer === "systemClientForm") html += systemClientFormDrawer();
+      else if (state.drawer === "otaTaskForm") html += otaTaskFormDrawer();
       else if (state.drawer === "profileEdit") html += profileEditDrawer();
       else if (state.drawer === "monitorLogDetail") html += monitorLogDetailDrawer();
       else if (state.drawer) html += `<aside class="drawer open"><div class="drawer-head"><span>${state.drawer === "theme" ? "主题配置" : "布局设置"}</span><button class="btn text" data-action="closeDrawer">关闭</button></div><div class="drawer-body">
@@ -13320,7 +13371,6 @@
       if (state.modal === "profileAvatar") html += profileAvatarModal();
       if (state.modal === "profilePassword") html += profilePasswordModal();
       if (state.modal === "categoryLabel") html += categoryLabelModal();
-      if (state.modal === "otaTaskForm") html += otaTaskFormModal();
       if (state.modal === "productLabel") html += productLabelModal();
       if (state.modal === "groupLabel") html += groupLabelModal();
       if (state.modal === "productScriptError") html += productScriptErrorModal();
@@ -14323,27 +14373,37 @@
         if (action === "otaDevicesRefresh") { render(); showToast("设备列表已刷新"); }
         if (action === "otaTaskView") { showToast("任务详情抽屉已打开"); }
         if (action === "otaTaskAutoReload") { state.otaTaskAutoReload = !state.otaTaskAutoReload; render(); showToast(state.otaTaskAutoReload ? "已开启自动刷新" : "已关闭自动刷新"); }
-        if (action === "otaTaskAdd") { state.modalData = { otaId: el.dataset.ota, mode: "add", index: null }; state.modal = "otaTaskForm"; render(); }
-        if (action === "otaTaskEdit") { state.modalData = { otaId: el.dataset.ota, mode: "edit", index: Number(el.dataset.idx) }; state.modal = "otaTaskForm"; render(); }
-        if (action === "otaTaskDetail") { state.modalData = { otaId: el.dataset.ota, mode: "view", index: Number(el.dataset.idx) }; state.modal = "otaTaskForm"; render(); }
+        if (action === "otaTaskAdd") { state.drawerData = { otaId: el.dataset.ota, mode: "add", index: null }; state.drawer = "otaTaskForm"; render(); }
+        if (action === "otaTaskEdit") { state.drawerData = { otaId: el.dataset.ota, mode: "edit", index: Number(el.dataset.idx) }; state.drawer = "otaTaskForm"; render(); }
+        if (action === "otaTaskDetail") { state.drawerData = { otaId: el.dataset.ota, mode: "view", index: Number(el.dataset.idx) }; state.drawer = "otaTaskForm"; render(); }
         if (action === "otaTaskFormSave") {
-          const data = state.modalData || {};
+          const data = state.drawerData || {};
           const ota = findOta(data.otaId) || state.otas[0];
           const name = (document.getElementById("ota-task-name")?.value || "").trim();
           if (!name) { showToast("请填写任务名称"); return; }
-          const next = {
-            task: name,
-            status: document.getElementById("ota-task-status")?.value || "pending",
-            progress: Math.max(0, Math.min(100, Number(document.getElementById("ota-task-progress")?.value || 0))),
-            version: (document.getElementById("ota-task-version")?.value || "").trim() || ota.firmwareVersion || "",
-            deviceCount: Math.max(0, Number(document.getElementById("ota-task-count")?.value || 0)),
-            createTime: (document.getElementById("ota-task-time")?.value || "").trim() || ota.createTime || ""
-          };
+          const descEl = document.getElementById("ota-task-desc");
           ota.tasks = ota.tasks || [];
+          const prev = data.index != null ? ota.tasks[data.index] : null;
+          const next = {
+            ...(prev || {}),
+            task: name,
+            taskType: document.getElementById("ota-task-type")?.value || "平台推送",
+            scope: document.getElementById("ota-task-scope")?.value || "指定设备",
+            deviceSet: document.getElementById("ota-task-set")?.value || "",
+            timeout: Number(document.getElementById("ota-task-timeout")?.value || 0),
+            retry: Number(document.getElementById("ota-task-retry")?.value || 0),
+            concurrency: Number(document.getElementById("ota-task-concurrency")?.value || 0),
+            desc: descEl ? descEl.innerHTML.trim() : "",
+            status: prev?.status || "pending",
+            progress: prev?.progress || 0,
+            version: prev?.version || ota.firmwareVersion || "",
+            deviceCount: prev?.deviceCount != null ? prev.deviceCount : (ota.devices || []).filter(device => device.taskName === name).length || ota.deviceCount || 0,
+            createTime: prev?.createTime || ota.createTime || ""
+          };
           if (data.mode === "add") ota.tasks.push(next);
           else if (data.index != null && ota.tasks[data.index]) ota.tasks[data.index] = next;
-          state.modal = "";
-          state.modalData = null;
+          state.drawer = "";
+          state.drawerData = null;
           render();
           showToast(data.mode === "add" ? "任务已创建" : "任务已保存");
           return;
@@ -14695,7 +14755,10 @@
         }
         if (action === "pushNoticeDeleteOne") { state.confirmAction = { kind: "pushNoticeDeleteOne", item: findPushNotice(el.dataset.id) }; state.modal = "confirm"; render(); }
         if (action === "pushNoticeFormSave") { savePushNoticeForm(); }
-        if (action === "richCommand") { runSimpleRichCommand(el.dataset.command || ""); }
+        if (action === "richCommand") { runSimpleRichCommand(el.dataset.command || "", el.dataset.target || "pushNoticeFormContent"); }
+        if (action === "richFormat") { runSimpleRichCommand("formatBlock", el.dataset.target || "pushNoticeFormContent", el.value || "p"); }
+        if (action === "richFontSize") { runSimpleRichCommand("fontSize", el.dataset.target || "pushNoticeFormContent", el.value || "3"); }
+        if (action === "richFontName") { runSimpleRichCommand("fontName", el.dataset.target || "pushNoticeFormContent", el.value || "inherit"); }
         if (action === "baseRegionSelect") { state.baseRegionSelectedCode = el.dataset.code || state.baseRegionSelectedCode; render(); }
         if (action === "baseRegionAddChild") { addBaseRegionChild(); }
         if (action === "baseRegionDelete") {
@@ -15486,6 +15549,16 @@
       if (ev.target?.closest?.(".top-user-menu")) return;
       state.userMenuOpen = false;
       render();
+    });
+    document.addEventListener("selectionchange", () => {
+      const sel = document.getSelection();
+      if (!sel || !sel.rangeCount) return;
+      const node = sel.anchorNode;
+      const host = node ? (node.nodeType === 1 ? node : node.parentElement) : null;
+      if (host?.closest?.(".simple-rich-body")) lastRichRange = sel.getRangeAt(0).cloneRange();
+    });
+    document.addEventListener("mousedown", ev => {
+      if (ev.target?.closest?.(".rich-tool-btn")) ev.preventDefault();
     });
     window.addEventListener("hashchange", () => {
       const next = location.hash.replace("#", "") || "/login";
