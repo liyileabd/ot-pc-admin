@@ -10431,11 +10431,14 @@
     function productCategoryLabel(category = {}) {
       return [category.industry, category.scene, category.categoryName || category.name].filter(Boolean).join(" / ");
     }
+    function productCategoryOptionLabel(category = {}) {
+      return category.categoryName || category.name || productCategoryLabel(category);
+    }
     function productCategoryOptions(selected = "", currentText = "") {
       const selectedText = String(selected || "");
       const hasSelected = state.categories.some(item => String(item.id) === selectedText);
       const preserved = !hasSelected && currentText ? `<option value="${safeText(selected || currentText)}" selected>${safeText(currentText)}</option>` : "";
-      return `<option value="">请选择产品关联品类</option>${preserved}${state.categories.map(item => `<option value="${safeText(item.id)}" ${selectedText === String(item.id) ? "selected" : ""}>${safeText(productCategoryLabel(item))}</option>`).join("")}`;
+      return `<option value="">请选择产品关联品类</option>${preserved}${state.categories.map(item => `<option value="${safeText(item.id)}" ${selectedText === String(item.id) ? "selected" : ""}>${safeText(productCategoryOptionLabel(item))}</option>`).join("")}`;
     }
     function productDeviceTypeName(value) {
       return { direct_connect: "直连设备", gateway: "网关设备", gateway_child: "网关子设备", device: "设备" }[value] || value || "-";
