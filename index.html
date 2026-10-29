@@ -1797,6 +1797,8 @@
           deviceStatus: 1,
           deviceStatusName: "在线",
           isCamera: 0,
+          createTime: "2024-06-10 09:15:22",
+          activeTime: "2024-06-10 09:18:40",
           lastOnline: "2024-06-24 10:20:11",
           deviceSecret: "DS-001-SECRET",
           location: "1号楼 3F"
@@ -1814,6 +1816,8 @@
           deviceStatus: 1,
           deviceStatusName: "在线",
           isCamera: 0,
+          createTime: "2024-06-09 14:02:11",
+          activeTime: "2024-06-09 14:05:33",
           lastOnline: "2024-06-24 10:12:45",
           deviceSecret: "DS-002-SECRET",
           location: "园区机房"
@@ -1831,6 +1835,8 @@
           deviceStatus: 2,
           deviceStatusName: "离线",
           isCamera: 1,
+          createTime: "2024-06-12 16:40:05",
+          activeTime: "2024-06-12 16:42:19",
           lastOnline: "2024-06-23 21:05:18",
           deviceSecret: "DS-003-SECRET",
           location: "前门"
@@ -8229,16 +8235,52 @@
       if (activeKey === "log") return deviceLogTab(device);
       if (activeKey === "map") return deviceMapPage(device);
       if (activeKey === "mqtt") return deviceMqttPage(device);
+      const deviceTags = Array.isArray(device.labels) ? device.labels.filter(labelHasContent) : [];
       return `<section class="category-source-section">
+        <h2>产品详情</h2>
+        <div class="category-source-desc-grid">
+          <div><span class="category-source-label">产品名称 :</span><strong class="category-source-value">${safeText(product ? product.productName : device.productName)} ${product ? `<button class="category-source-edit-link" data-route="${productDetailRoute(product)}">查看</button>` : ""}</strong></div>
+          <div><span class="category-source-label">设备类型 :</span><strong class="category-source-value">${safeText((product && product.deviceTypeName) || device.deviceTypeName || "-")}</strong></div>
+          <div><span class="category-source-label">创建时间 :</span><strong class="category-source-value">${safeText((product && (product.createTime || product.updateTime)) || "-")}</strong></div>
+          <div><span class="category-source-label">所属品类 :</span><strong class="category-source-value">${safeText((product && product.categoryNameFull) || "-")}</strong></div>
+          <div><span class="category-source-label">数据状态 :</span><strong class="category-source-value">${safeText((product && product.statusName) || "-")}</strong></div>
+          <div><span class="category-source-label">动态注册 :</span><strong class="category-source-value">${safeText((product && product.dynamicRegisterName) || "-")}</strong></div>
+          <div><span class="category-source-label">链接协议 :</span><strong class="category-source-value">${safeText((product && product.linkProtocol) || "-")}</strong></div>
+          <div><span class="category-source-label">联网方式 :</span><strong class="category-source-value">${safeText((product && product.connectModeName) || "-")}</strong></div>
+          <div><span class="category-source-label">数据格式 :</span><strong class="category-source-value">${safeText((product && product.dataTypeName) || "-")}</strong></div>
+          <div><span class="category-source-label">生产厂商 :</span><strong class="category-source-value">${safeText((product && product.vendors) || "-")}</strong></div>
+          <div><span class="category-source-label">产品型号 :</span><strong class="category-source-value">${safeText((product && product.model) || "-")}</strong></div>
+          <div><span class="category-source-label">产品描述 :</span><strong class="category-source-value">${safeText((product && product.productDesc) || "-")}</strong></div>
+        </div>
+      </section>
+      <section class="category-source-section">
         <h2>设备详情</h2>
         <div class="category-source-desc-grid">
-          <div><span class="category-source-label">所属产品 :</span><strong class="category-source-value">${safeText(product ? product.productName : device.productName)}</strong></div>
-          <div><span class="category-source-label">DeviceName :</span><strong class="category-source-value">${safeText(device.deviceName)}</strong></div>
-          <div><span class="category-source-label">ProductKey :</span><strong class="category-source-value">${safeText(device.productKey)}</strong></div>
-          <div><span class="category-source-label">DeviceSecret :</span><strong class="category-source-value">${safeText(device.deviceSecret)}</strong></div>
-          <div><span class="category-source-label">备注名称 :</span><strong class="category-source-value">${safeText(device.deviceNoteName || "-")}</strong></div>
-          <div><span class="category-source-label">唯一编号 :</span><strong class="category-source-value">${safeText(device.uniqueNo || "-")}</strong></div>
+          <div><span class="category-source-label">设备名称 :</span><strong class="category-source-value">${safeText(device.deviceName)} <button class="category-source-edit-link" data-action="copy" data-copy="${safeText(device.deviceName)}">复制</button></strong></div>
+          <div><span class="category-source-label">备注名称 :</span><strong class="category-source-value">${safeText(device.deviceNoteName || "-")} <button class="category-source-edit-link" data-action="deviceEdit" data-id="${safeText(device.id)}">编辑</button></strong></div>
+          <div><span class="category-source-label">认证方式 :</span><strong class="category-source-value">${safeText(device.authMode || "-")}</strong></div>
+          <div><span class="category-source-label">创建时间 :</span><strong class="category-source-value">${safeText(device.createTime || "-")}</strong></div>
+          <div><span class="category-source-label">激活时间 :</span><strong class="category-source-value">${safeText(device.activeTime || "-")}</strong></div>
+          <div><span class="category-source-label">最后上线时间 :</span><strong class="category-source-value">${safeText(device.lastOnlineTime || device.lastOnline || "-")}</strong></div>
           <div><span class="category-source-label">设备状态 :</span><strong class="category-source-value"><span class="status-badge ${device.deviceStatus === 1 ? "success" : "danger"}">${safeText(device.deviceStatusName)}</span></strong></div>
+          <div><span class="category-source-label">启用状态 :</span><strong class="category-source-value">${Number(device.status) === 1 ? "启用" : "停用"}</strong></div>
+          <div><span class="category-source-label">实时延时 :</span><strong class="category-source-value">${device.latency ? `${safeText(device.latency)} ms` : "-"} <button class="category-source-edit-link" data-action="deviceLatencyTest" data-id="${safeText(device.id)}">测试</button></strong></div>
+        </div>
+      </section>
+      <section class="category-source-section">
+        <h2>设备扩展信息</h2>
+        <div class="category-source-desc-grid">
+          <div><span class="category-source-label">SDK 语言 :</span><strong class="category-source-value">${safeText(device.sdkLanguage || "-")}</strong></div>
+          <div><span class="category-source-label">版本号 :</span><strong class="category-source-value">${safeText(device.firmwareVersion || "-")}</strong></div>
+          <div><span class="category-source-label">模组商 :</span><strong class="category-source-value">${safeText(device.moduleVendor || "-")}</strong></div>
+          <div><span class="category-source-label">模组信息 :</span><strong class="category-source-value">${safeText(device.moduleInfo || "-")}</strong></div>
+        </div>
+      </section>
+      <section class="category-source-section">
+        <h2>标签信息</h2>
+        <div class="category-source-label-row">
+          <span class="category-source-label">标签列表 :</span>
+          <div class="category-source-tags">${deviceTags.map(item => `<span class="category-source-tag">${safeText(item.labelKey)}：${safeText(item.labelValue)}</span>`).join("") || `<span class="category-source-value">-</span>`}<button class="category-source-edit-link" data-action="deviceLabelEdit" data-id="${safeText(device.id)}">编辑</button></div>
         </div>
       </section>`;
     }
@@ -14063,6 +14105,11 @@
         if (action === "deviceDelete") { if (!requireTableSelection("device")) return; state.confirmAction = { kind: "deviceDeleteAll" }; state.modal = "confirm"; render(); }
         if (action === "deviceDeleteOne") { state.confirmAction = { kind: "deviceDeleteOne", item: findDeviceById(el.dataset.id) }; state.modal = "confirm"; render(); }
         if (action === "deviceOffline") { state.confirmAction = { kind: "deviceOffline", item: findDeviceById(el.dataset.id) }; state.modal = "confirm"; render(); }
+        if (action === "deviceLatencyTest") {
+          const device = findDeviceById(el.dataset.id) || currentDetailDevice();
+          if (device) { device.latency = 8 + Math.floor(Math.random() * 40); render(); showToast(`实时延时 ${device.latency} ms`); }
+        }
+        if (action === "deviceLabelEdit") { showToast("设备标签编辑沿用真实平台入口，原型暂以本地状态展示"); }
         if (action === "devicePlay") { state.modalData = findDeviceById(el.dataset.id); state.modal = "video"; render(); }
         if (action === "deviceLogoPick") { pickDeviceLogo(); }
         if (action === "deviceFieldGenerate") { generateDeviceEditorValue(el.dataset.field || ""); }
