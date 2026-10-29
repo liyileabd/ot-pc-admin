@@ -4333,6 +4333,7 @@
     function labelKindPrefix(kind) {
       if (kind === "product") return "product";
       if (kind === "group") return "group";
+      if (kind === "device") return "device";
       return "category";
     }
     function labelModalRow(kind, item, index, editingIndex) {
@@ -4366,10 +4367,14 @@
       if (kind === "group") {
         return findGroupById(state.modalData?.groupId) || currentDetailGroup();
       }
+      if (kind === "device") {
+        return findDeviceById(state.modalData?.deviceId) || currentDetailDevice();
+      }
       return findCategoryById(state.modalData?.categoryId) || state.categories[0];
     }
     function labelRowsFor(kind, owner) {
       if (kind === "group") return groupLabels(owner);
+      if (kind === "device") return deviceLabels(owner);
       return kind === "product" ? productLabels(owner) : categoryLabels(owner);
     }
     function cloneLabelRows(rows) {
@@ -4388,7 +4393,7 @@
       };
     }
     function restoreLabelModalDraft() {
-      const kind = state.modal === "productLabel" ? "product" : state.modal === "groupLabel" ? "group" : state.modal === "categoryLabel" ? "category" : "";
+      const kind = state.modal === "productLabel" ? "product" : state.modal === "groupLabel" ? "group" : state.modal === "deviceLabel" ? "device" : state.modal === "categoryLabel" ? "category" : "";
       if (!kind || !state.modalData || !Array.isArray(state.modalData.originalLabels)) return;
       const owner = currentLabelOwner(kind);
       if (!owner) return;
@@ -4513,6 +4518,25 @@
         </div>
         <div class="modal-foot"><button class="btn" data-action="closeModal">取 消</button><button class="btn primary" data-action="groupLabelSave">确 定</button></div>
       </div></div>`;
+    }
+    function deviceLabelModal() {
+      const device = findDeviceById(state.modalData?.deviceId) || currentDetailDevice();
+      const labels = deviceLabels(device);
+      return `<div class="modal-mask"><div class="modal modal-wide category-label-modal">
+        <div class="modal-head"><span>设备标签配置</span><button class="btn text" data-action="closeModal">×</button></div>
+        <div class="modal-body">
+          <div class="table-panel label-edit-table-panel"><table class="data-table compact label-edit-table">
+            <thead><tr><th>标签名</th><th>标签值</th><th style="width:120px">操作</th></tr></thead>
+            <tbody>${labelModalRows("device", labels)}</tbody>
+            <tfoot><tr class="label-add-row"><td colspan="3"><button type="button" class="label-add-row-btn" data-action="deviceLabelAdd"><span>＋</span>新增行</button></td></tr></tfoot>
+          </table></div>
+        </div>
+        <div class="modal-foot"><button class="btn" data-action="closeModal">取 消</button><button class="btn primary" data-action="deviceLabelSave">确 定</button></div>
+      </div></div>`;
+    }
+    function deviceLabels(device) {
+      if (!device) return [];
+      return Array.isArray(device.labels) ? device.labels : [];
     }
     function detailPlaceholderPage(title) {
       const backRoute = baseRoute(state.route).startsWith("/iot/product") ? "/iot/product" : "/iot/category";
@@ -8235,7 +8259,7 @@
       if (activeKey === "log") return deviceLogTab(device);
       if (activeKey === "map") return deviceMapPage(device);
       if (activeKey === "mqtt") return deviceMqttPage(device);
-      const deviceTags = Array.isArray(device.labels) ? device.labels.filter(labelHasContent) : [];
+      const deviceTags = deviceLabels(device).filter(labelHasContent);
       return `<section class="category-source-section">
         <h2>产品详情</h2>
         <div class="category-source-desc-grid">
@@ -13418,6 +13442,7 @@
       if (state.modal === "categoryLabel") html += categoryLabelModal();
       if (state.modal === "productLabel") html += productLabelModal();
       if (state.modal === "groupLabel") html += groupLabelModal();
+      if (state.modal === "deviceLabel") html += deviceLabelModal();
       if (state.modal === "productScriptError") html += productScriptErrorModal();
       if (state.modal === "serverRelayForm") html += serverRelayFormModal();
       if (state.modal === "serverGroupForm") html += serverGroupFormModal();
@@ -14109,7 +14134,47 @@
           const device = findDeviceById(el.dataset.id) || currentDetailDevice();
           if (device) { device.latency = 8 + Math.floor(Math.random() * 40); render(); showToast(`实时延时 ${device.latency} ms`); }
         }
-        if (action === "deviceLabelEdit") { showToast("设备标签编辑沿用真实平台入口，原型暂以本地状态展示"); }
+        if (action === "deviceLabelEdit") {
+          const device = findDeviceById(el.dataset.id) || currentDetailDevice();
+          state.modalData = { deviceId: device?.id || el.dataset.id, ...labelModalSnapshot("device", device) };
+          state.modal = "deviceLabel";
+          render();
+        }
+        if (action === "deviceLabelAdd") {
+          syncLabelEditingRow("device");
+          const rows = ensureLabelRows("device");
+          rows.push({ id: `label-${Date.now()}`, labelKey: "", labelValue: "" });
+          state.modalData = { ...(state.modalData || {}), editingIndex: rows.length - 1 };
+          render();
+        }
+        if (action === "deviceLabelRowEdit") { editLabelRow("device", el.dataset.index); }
+        if (action === "deviceLabelRowSave") { saveLabelRow("device", el.dataset.index); }
+        if (action === "deviceLabelRemove") {
+          syncLabelEditingRow("device");
+          const rows = ensureLabelRows("device");
+          const index = Number(el.dataset.index || 0);
+          rows.splice(index, 1);
+          const editingIndex = Number(state.modalData?.editingIndex ?? -1);
+          state.modalData = { ...(state.modalData || {}), editingIndex: editingIndex === index ? null : editingIndex > index ? editingIndex - 1 : editingIndex };
+          render();
+        }
+        if (action === "deviceLabelSave") {
+          if (!validateAllLabelRows("device")) return;
+          syncLabelEditingRow("device");
+          const device = findDeviceById(state.modalData?.deviceId) || currentDetailDevice();
+          if (device) {
+            const current = deviceLabels(device);
+            device.labels = current.map((item, index) => ({
+              id: item.id || `label-${index}`,
+              labelKey: document.getElementById(`deviceLabelKey${index}`)?.value.trim() || item.labelKey,
+              labelValue: document.getElementById(`deviceLabelValue${index}`)?.value.trim() || item.labelValue
+            }));
+          }
+          state.modal = "";
+          state.modalData = null;
+          render();
+          showToast("标签已保存");
+        }
         if (action === "devicePlay") { state.modalData = findDeviceById(el.dataset.id); state.modal = "video"; render(); }
         if (action === "deviceLogoPick") { pickDeviceLogo(); }
         if (action === "deviceFieldGenerate") { generateDeviceEditorValue(el.dataset.field || ""); }
