@@ -6409,7 +6409,7 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
       margin-top: 20px;
     }
 
-.mqtt-client-view-card:last-child {
+.mqtt-client-view-body > .mqtt-client-view-card:last-child {
       padding-bottom: 0;
       border-bottom: 0;
     }
