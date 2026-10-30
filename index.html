@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261028otadrawer4" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261030dir1" />
 </head>
 <body>
   <div id="root"></div>
@@ -5170,15 +5170,28 @@
         <button class="btn primary" data-action="deviceLabConnect" data-lab="${kind}">${copy.startLargeText}</button>
       </section>`;
     }
+    function deviceLabPanels(kind) {
+      return kind === "debugger"
+        ? { down: [["propertyDown", "属性调试"], ["commandDown", "命令调用"]] }
+        : { up: [["propertyUp", "属性上报"], ["eventUp", "事件上报"]], down: [["propertyDown", "属性调试"], ["commandDown", "命令调用"]] };
+    }
+    function deviceLabDirLabel(dir) {
+      return dir === "up" ? "上行指令调试" : "下行指令调试";
+    }
     function deviceLabConnected(kind) {
       const lab = deviceLabState(kind);
-      const tabs = kind === "debugger"
-        ? [["propertyDown", "属性调试"], ["commandDown", "命令调用"]]
-        : [["propertyUp", "属性上报"], ["eventUp", "事件上报"], ["propertyDown", "属性调试"], ["commandDown", "命令调用"]];
+      const panels = deviceLabPanels(kind);
+      const dirKeys = Object.keys(panels);
+      let dir = String(lab.panel || "").endsWith("Up") ? "up" : "down";
+      if (!panels[dir]) dir = dirKeys[0];
+      const tabs = panels[dir];
       if (!tabs.some(([key]) => key === lab.panel)) lab.panel = tabs[0][0];
+      const head = dirKeys.length > 1
+        ? `<div class="device-lab-dir-tabs">${dirKeys.map(key => `<button class="device-lab-dir-tab ${dir === key ? "active" : ""}" data-action="deviceLabDir" data-lab="${kind}" data-dir="${key}">${deviceLabDirLabel(key)}</button>`).join("")}</div>`
+        : `<div class="section-title">${deviceLabDirLabel(dir)}</div>`;
       return `<section class="device-lab-grid">
         <div class="panel device-lab-console">
-          <div class="section-title">${kind === "debugger" ? "下行指令调试" : lab.panel.endsWith("Up") ? "上行指令调试" : "下行指令调试"}</div>
+          ${head}
           <div class="tab-strip device-lab-tabs">${tabs.map(([key, label]) => `<button class="tab ${lab.panel === key ? "active" : ""}" data-action="deviceLabTab" data-lab="${kind}" data-tab="${key}">${label}</button>`).join("")}</div>
           <div class="device-lab-panel">${deviceLabPanel(kind, lab.panel)}</div>
         </div>
@@ -14438,6 +14451,13 @@
           render();
         }
         if (action === "deviceLabTab") { const lab = deviceLabState(el.dataset.lab || "simulator"); lab.panel = el.dataset.tab || lab.panel; render(); }
+        if (action === "deviceLabDir") {
+          const labKind = el.dataset.lab || "simulator";
+          const lab = deviceLabState(labKind);
+          const first = deviceLabPanels(labKind)[el.dataset.dir || "up"]?.[0]?.[0];
+          if (first) lab.panel = first;
+          render();
+        }
         if (action === "deviceLabLogTab") { const lab = deviceLabState(el.dataset.lab || "simulator"); lab.logTab = el.dataset.tab || "device"; render(); }
         if (action === "deviceLabSend") { deviceLabSend(el.dataset.lab || "simulator", el.dataset.command || "propertyUp"); }
         if (action === "deviceLabLogRefresh") { render(); showToast("日志已刷新"); }

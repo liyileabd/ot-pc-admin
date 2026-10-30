@@ -8521,6 +8521,45 @@ select[data-compact-source] {
   border-bottom: 1px solid var(--line);
 }
 
+.device-lab-dir-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px 0;
+}
+
+.device-lab-dir-tab {
+  height: 30px;
+  padding: 0 14px;
+  border: 1px solid #dcdfe6;
+  border-radius: 15px;
+  background: #fff;
+  color: #606266;
+  font-size: 13px;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.device-lab-dir-tab:hover {
+  color: var(--blue);
+  border-color: #a3d0ff;
+}
+
+.device-lab-dir-tab.active {
+  background: #ecf5ff;
+  border-color: #a3d0ff;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.device-lab-dir-tabs + .device-lab-tabs {
+  margin-top: 10px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+}
+
 .device-lab-panel {
   padding: 16px;
 }
