@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261030mqttform4" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261030noreq1" />
 </head>
 <body>
   <div id="root"></div>
@@ -12665,7 +12665,7 @@
       };
       const body = `${fields.map(fieldBody).join("")}`;
       const footer = readonly ? `<button class="btn" data-action="closeDrawer">返回</button>` : `<button class="btn" data-action="closeDrawer">取 消</button><button class="btn primary" data-action="systemFormSave">确 定</button>`;
-      return `<aside class="drawer open unified-editor-drawer system-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body"><div class="shared-editor-form category-editor-relaxed">${body}</div></div><div class="drawer-foot">${footer}</div></aside>`;
+      return `<aside class="drawer open unified-editor-drawer system-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body"><div class="shared-editor-form category-editor-relaxed${readonly ? " is-readonly" : ""}">${body}</div></div><div class="drawer-foot">${footer}</div></aside>`;
     }
     function systemUserTenantName(item = {}) {
       if (item.tenantName) return item.tenantName;
@@ -12731,7 +12731,7 @@
       const disabled = readonly ? "disabled" : "";
       const parentDisabled = readonly || item.parentLocked ? "disabled" : "";
       return `<aside class="drawer open unified-editor-drawer system-menu-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
-        <div class="shared-editor-form category-editor-relaxed system-menu-side-form">
+        <div class="shared-editor-form category-editor-relaxed system-menu-side-form${readonly ? " is-readonly" : ""}">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">菜单信息</div>
             <div class="shared-editor-grid">
@@ -12760,7 +12760,7 @@
       const readonlyAttr = readonly ? "readonly" : "";
       const input = (key, label, required = false, type = "text", placeholder = "") => `<div class="form-line"><label class="${required ? "required" : ""}" for="system-client-${key}">${label}</label><input id="system-client-${key}" type="${type}" value="${safeText(item[key] ?? "")}" placeholder="${safeText(placeholder)}" ${readonlyAttr}></div>`;
       return `<aside class="drawer open unified-editor-drawer system-client-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
-        <div class="shared-editor-form category-editor-relaxed system-client-side-form">
+        <div class="shared-editor-form category-editor-relaxed system-client-side-form${readonly ? " is-readonly" : ""}">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">应用信息</div>
             <div class="shared-editor-grid">
@@ -12790,7 +12790,7 @@
       const tenantValue = item.tenantId || item.tenantName || state.systemTenants[0]?.tenantId || "";
       const parentValue = item.parentId ?? item.parentName ?? "0";
       return `<aside class="drawer open unified-editor-drawer system-dept-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
-        <div class="shared-editor-form category-editor-relaxed system-dept-side-form">
+        <div class="shared-editor-form category-editor-relaxed system-dept-side-form${readonly ? " is-readonly" : ""}">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">部门信息</div>
             <div class="shared-editor-grid">
@@ -12843,7 +12843,7 @@
           <div class="form-line"><label class="required" for="system-user-password2">确认密码</label><input id="system-user-password2" type="password" value="${safeText(item.password2 || "")}" placeholder="请再次输入密码"></div>`
         : "";
       return `<aside class="drawer open unified-editor-drawer system-user-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
-        <div class="shared-editor-form category-editor-relaxed system-user-side-form">
+        <div class="shared-editor-form category-editor-relaxed system-user-side-form${readonly ? " is-readonly" : ""}">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">用户信息</div>
             <div class="shared-editor-grid">

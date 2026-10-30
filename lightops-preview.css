@@ -12048,6 +12048,11 @@ select[data-compact-source] {
   margin-right: 4px;
 }
 
+.shared-editor-form.is-readonly .form-line > label.required::before {
+  content: none;
+  margin-right: 0;
+}
+
 .shared-editor-form .form-line > input,.shared-editor-form .form-line > select,.shared-editor-form .form-line > textarea,
 .shared-editor-form .form-line > .input-with-actions,
 .shared-editor-form .form-line > .editor-radio-group,
