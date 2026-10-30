@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261030dir1" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261030dir2" />
 </head>
 <body>
   <div id="root"></div>
@@ -5187,7 +5187,7 @@
       const tabs = panels[dir];
       if (!tabs.some(([key]) => key === lab.panel)) lab.panel = tabs[0][0];
       const head = dirKeys.length > 1
-        ? `<div class="device-lab-dir-tabs">${dirKeys.map(key => `<button class="device-lab-dir-tab ${dir === key ? "active" : ""}" data-action="deviceLabDir" data-lab="${kind}" data-dir="${key}">${deviceLabDirLabel(key)}</button>`).join("")}</div>`
+        ? `<div class="tab-strip device-lab-dir-tabs">${dirKeys.map(key => `<button class="tab ${dir === key ? "active" : ""}" data-action="deviceLabDir" data-lab="${kind}" data-dir="${key}">${deviceLabDirLabel(key)}</button>`).join("")}</div>`
         : `<div class="section-title">${deviceLabDirLabel(dir)}</div>`;
       return `<section class="device-lab-grid">
         <div class="panel device-lab-console">

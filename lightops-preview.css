@@ -8522,39 +8522,35 @@ select[data-compact-source] {
 }
 
 .device-lab-dir-tabs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 16px 0;
+  padding: 0;
+  background: #f5f7fa;
+  border-bottom: 1px solid #ebeef5;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
-.device-lab-dir-tab {
-  height: 30px;
-  padding: 0 14px;
-  border: 1px solid #dcdfe6;
-  border-radius: 15px;
-  background: #fff;
+.device-lab-dir-tabs .tab {
+  height: 40px;
+  padding: 0 20px;
+  border: 0;
+  border-right: 1px solid #ebeef5;
+  border-bottom: 1px solid #ebeef5;
   color: #606266;
-  font-size: 13px;
-  line-height: 28px;
-  cursor: pointer;
 }
 
-.device-lab-dir-tab:hover {
+.device-lab-dir-tabs .tab:hover {
   color: var(--blue);
-  border-color: #a3d0ff;
 }
 
-.device-lab-dir-tab.active {
-  background: #ecf5ff;
-  border-color: #a3d0ff;
+.device-lab-dir-tabs .tab.active {
+  background: #fff;
   color: var(--blue);
   font-weight: 600;
+  border-bottom-color: #fff;
 }
 
 .device-lab-dir-tabs + .device-lab-tabs {
-  margin-top: 10px;
-  padding: 0 16px;
+  margin-top: 0;
+  padding: 4px 16px 0;
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
