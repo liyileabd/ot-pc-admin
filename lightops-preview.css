@@ -6475,7 +6475,7 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
       table-layout: fixed;
       border-collapse: collapse;
       color: #1f2d3d;
-      font-size: 13px;
+      font-size: 14px;
     }
 
 .mqtt-client-subscribe-table th,

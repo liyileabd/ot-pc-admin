@@ -1266,7 +1266,7 @@
     }
 
   </style>
-<link rel="stylesheet" href="lightops-preview.css?v=20261030mqttform3" />
+<link rel="stylesheet" href="lightops-preview.css?v=20261030mqttform4" />
 </head>
 <body>
   <div id="root"></div>
@@ -5950,14 +5950,14 @@
           <section class="mqtt-client-view-card"><div class="mqtt-client-view-card-head">指标信息</div>${group(stat)}</section>
         </div>
         <section class="mqtt-client-view-card mqtt-client-view-subscribe"><div class="mqtt-client-view-card-head">订阅列表</div>
-          <table class="mqtt-client-subscribe-table"><thead><tr><th>客户端</th><th>Topic</th><th style="width:80px">QoS</th></tr></thead>
+          <table class="mqtt-client-subscribe-table"><colgroup><col style="width:190px" /><col /><col style="width:90px" /></colgroup><thead><tr><th>客户端</th><th>Topic</th><th>QoS</th></tr></thead>
             <tbody>${subscriptions.map(row => `<tr><td>${safeText(row.clientId)}</td><td><span class="mono">${safeText(row.topicFilter)}</span></td><td>${safeText(row.mqttQoS)}</td></tr>`).join("") || `<tr><td colspan="3"><div class="empty">暂无订阅</div></td></tr>`}</tbody>
           </table>
         </section>
       </div>`;
     }
     function mqttClientViewModal() {
-      return `<div class="modal-mask"><div class="modal modal-wide mqtt-client-view-modal"><div class="modal-head"><span>查看 mqtt客户端</span><button class="btn text" data-action="closeModal">×</button></div><div class="modal-body">${mqttClientViewBody(state.modalData)}</div><div class="modal-foot"><button class="btn" data-action="closeModal">返回</button></div></div></div>`;
+      return `<div class="modal-mask"><div class="modal modal-wide mqtt-client-view-modal"><div class="modal-head"><span>客户端详情</span><button class="btn text" data-action="closeModal">×</button></div><div class="modal-body">${mqttClientViewBody(state.modalData)}</div><div class="modal-foot"><button class="btn" data-action="closeModal">返回</button></div></div></div>`;
     }
     function mqttMonitorPage() {
       const m = state.mqttMonitor;
