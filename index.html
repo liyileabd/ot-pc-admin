@@ -12789,7 +12789,7 @@
       const disabled = readonly ? "disabled" : "";
       const tenantValue = item.tenantId || item.tenantName || state.systemTenants[0]?.tenantId || "";
       const parentValue = item.parentId ?? item.parentName ?? "0";
-      return `<aside class="drawer open unified-editor-drawer system-dept-form-drawer"><div class="drawer-head"><span>${title}</span><button class="btn text drawer-close-icon" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="drawer-body">
+      return `<div class="modal-mask"><div class="modal system-form-dialog system-dept-form-drawer"><div class="modal-head"><span>${title}</span><button class="btn text" data-action="closeDrawer" aria-label="关闭">×</button></div><div class="modal-body">
         <div class="shared-editor-form category-editor-relaxed system-dept-side-form${readonly ? " is-readonly" : ""}">
           <section class="category-editor-section shared-editor-section">
             <div class="category-editor-section-title">部门信息</div>
@@ -12803,7 +12803,7 @@
             </div>
           </section>
         </div>
-      </div><div class="drawer-foot">${readonly ? `<button class="btn primary" data-action="closeDrawer">返回</button>` : `<button class="btn" data-action="closeDrawer">取消</button><button class="btn primary" data-action="systemDeptFormSave">保存</button>`}</div></aside>`;
+      </div><div class="modal-foot">${readonly ? `<button class="btn primary" data-action="closeDrawer">返回</button>` : `<button class="btn" data-action="closeDrawer">取消</button><button class="btn primary" data-action="systemDeptFormSave">保存</button>`}</div></div></div>`;
     }
     function systemUserFormDrawer() {
       const data = state.drawerData || {};
