@@ -6392,50 +6392,56 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
     }
 
 .mqtt-client-view-panels {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      display: block;
       min-width: 0;
     }
 
 .mqtt-client-view-card {
       min-width: 0;
-      border: 1px solid #dfe7f2;
-      border-radius: 6px;
-      background: #fff;
-      padding: 16px;
+      padding: 0 0 20px;
+      border: 0;
+      border-bottom: 1px solid #edf1f6;
+      border-radius: 0;
+      background: transparent;
+    }
+
+.mqtt-client-view-card + .mqtt-client-view-card {
+      margin-top: 20px;
+    }
+
+.mqtt-client-view-card:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
     }
 
 .mqtt-client-view-card-head {
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #dfe7f2;
-      color: #1f2d3d;
+      margin-bottom: 16px;
+      padding-bottom: 0;
+      border-bottom: 0;
+      color: #243047;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
 .mqtt-client-field-grid {
-      display: block;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 44px;
+      row-gap: 16px;
       min-width: 0;
     }
 
 .mqtt-client-field {
       min-width: 0;
-      min-height: 38px;
+      min-height: 22px;
       display: grid;
-      grid-template-columns: 150px minmax(0, 1fr);
-      align-items: center;
-      gap: 10px;
-      padding: 4px 0;
+      grid-template-columns: 172px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 12px;
+      padding: 0;
       border: 0;
-      border-bottom: 1px solid #f2f3f5;
       background: transparent;
       color: #1f2d3d;
-    }
-
-.mqtt-client-field:last-child {
-      border-bottom: 0;
     }
 
 .mqtt-client-field.wide {
@@ -6443,23 +6449,24 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
     }
 
 .mqtt-client-field span {
-      color: #606266;
-      font-size: 12px;
-      line-height: 1.35;
-      text-align: right;
+      color: #737d8c;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
       overflow-wrap: anywhere;
     }
 
 .mqtt-client-field span::after {
-      content: "：";
+      content: " :";
     }
 
 .mqtt-client-field strong {
       min-width: 0;
       color: #1f2d3d;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      line-height: 1.35;
+      line-height: 22px;
       overflow-wrap: anywhere;
     }
 
