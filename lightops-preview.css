@@ -6416,23 +6416,26 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
     }
 
 .mqtt-client-field-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px 16px;
+      display: block;
       min-width: 0;
     }
 
 .mqtt-client-field {
       min-width: 0;
-      min-height: 42px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      padding: 6px 10px;
-      border: 1px solid #e1e8f0;
-      background: #fbfcfe;
+      min-height: 38px;
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 4px 0;
+      border: 0;
+      border-bottom: 1px solid #f2f3f5;
+      background: transparent;
       color: #1f2d3d;
+    }
+
+.mqtt-client-field:last-child {
+      border-bottom: 0;
     }
 
 .mqtt-client-field.wide {
@@ -6440,17 +6443,23 @@ td.row-actions .link-cell:last-child { margin-right: 0; }
     }
 
 .mqtt-client-field span {
-      color: #3f5064;
+      color: #606266;
       font-size: 12px;
-      line-height: 1.2;
+      line-height: 1.35;
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
+
+.mqtt-client-field span::after {
+      content: "：";
     }
 
 .mqtt-client-field strong {
       min-width: 0;
       color: #1f2d3d;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      line-height: 1.25;
+      line-height: 1.35;
       overflow-wrap: anywhere;
     }
 
