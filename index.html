@@ -10229,7 +10229,7 @@
         <section class="panel">
           ${systemToolbar("user", extra)}
           <div class="table-panel"><table class="data-table">
-            <thead><tr><th style="width:36px"><input type="checkbox" disabled></th><th>登录账号</th><th>用户昵称</th><th>用户姓名</th><th>所属角色</th><th>所属部门</th><th>手机号码</th><th style="width:170px">操作</th></tr></thead>
+            <thead><tr><th style="width:36px"><input type="checkbox" disabled></th><th>登录账号</th><th>用户昵称</th><th>用户姓名</th><th>所属角色</th><th>所属部门</th><th>手机号码</th><th style="width:210px">操作</th></tr></thead>
             <tbody>${list.map(item => {
               const attrs = systemUserActionAttrs(item);
               return `<tr>
@@ -15721,8 +15721,11 @@
       "管理设备": '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
       "子分组": '<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M12 11.5v5"/><path d="M9.5 14h5"/>',
       "权限设置": '<path d="M12 2.5 4.5 5.5v6c0 5 3.2 8.4 7.5 10 4.3-1.6 7.5-5 7.5-10v-6L12 2.5Z"/><path d="m9 12 2 2 4-4"/>',
-      "详情": '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>'
+      "详情": '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>',
+      "查看": '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>',
+      "新增子项": '<path d="M12 6.5v11"/><path d="M6.5 12h11"/>'
     };
+    ICONS["字典配置"] = ICONS["配置"];
     var SVG_ATTR = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
 
     function decorate() {
